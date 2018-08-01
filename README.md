@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Publications
 ============
 
@@ -57,3 +58,6 @@ Rather than duplicate them here, some other formats are found in their
 own repo:
 
 * [ANS Transactions](https://github.com/sethrj/anstrans) by Seth Johnson (@sethrj)
+=======
+# ms-thesis
+>>>>>>> 351b7b6c28df1f7c48598a25636f43e06863c33b
