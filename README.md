@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-Publications
-============
+Greg Westphal's Thesis
+=========================
 
 This is a public repository for the shared development of
 publications.  
