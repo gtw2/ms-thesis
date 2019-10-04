@@ -1,6 +1,14 @@
 \chapter[Introduction]{Introduction}
+The diversion of significant quantities of \gls{SNM} from the nuclear fuel cycle is major non-proliferation 
+concern \cite{noauthor_iaea_2017}. These diversions must be detected in a timely manner using signatures and observables in 
+order to properly safegaurd the fuel cycle. Timely detection is critical in non-proliferation to discover these shadow fuel cycles
+before diverted material is further processed. Pyroprocessing is a used nuclear fuel separations technology for advanced reactors. 
+Signatures and observables are used to detect diversion of nuclear material.
+The goal of this research is to identify potential signs of material diversion in a pyroprocessing facility and implement models 
+of these processes into a detailed pyroprocessing facility archetype to the modular, agent-based, fuel cycle simulator, \Cyclus \cite{huff_fundamental_2016}. This facility archetype will equip users of the \Cyclus fuel cycle simulator to investigate 
+detection timeliness enabled by measuring signatures and observables in various fuel cycle scenarios.
 \section{Motivation}
-\subsection{Why safeguards?}
+\subsection{Safeguards}
 \paragraph{We want to prevent the ability to siphon material over time.}
 
 \paragraph{For other fuel cycle facilities, we have plenty of operating experience to inform on safeguard construction.}
@@ -40,7 +48,7 @@ Electrochemical separation is the driving force behind pyroprocessing. Electroch
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{electrochem}
+	\includegraphics[width=0.8\linewidth]{images/electrochem}
 	\caption{Basic example of movement of ion within galvanic cell \cite{angel}.}
 \end{figure}
 
@@ -62,7 +70,7 @@ The above reaction is possible because of the expansion of uranium at elevated t
 
 An added benefit of running a pyroprocessing voloxidation sub-process at the temperatures previously mentioned, 700-1000$^\circ C$, is the removal of some fission products. The PRIDE facility at KAERI takes it a step further and voloxidates at 1250$^\circ C$ to remove troublesome fission products at the beginning of the cycle\cite{organisation}:
 
-\[ \includegraphics[width=\linewidth]{volox_table.png} \]
+\[ \includegraphics[width=\linewidth]{images/volox_table.png} \]
 
 As shown in the table above, a majority of high activity isotopes are removed from the system at the beginning of pyroprocessing. This protects equipment and workers down the line. These gases are sent to the off-gas treatment facility that makes use of various scrubbing techniques such as liquid scrubbing, cyrogenic distillation (for the krypton), caustic scrubbing, etc \cite{jubin_spent_2009}.
 
@@ -71,7 +79,7 @@ Following off-gassing and conversion to yellowcake, the non-metallic fuel must b
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=\linewidth]{reduction_flow}
+	\includegraphics[width=\linewidth]{images/reduction_flow}
 	\caption{Electroreduction flow sheet \cite{ohta}.}
 \end{figure}
 

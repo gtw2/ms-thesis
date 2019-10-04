@@ -1,5 +1,11 @@
 \chapter[Methods]{Methods}
 \section{Cyclus}
+
+\Cyclus models the flow of material through user-defined nuclear fuel cycle scenarios. Facilities in nuclear fuel cycles vary, 
+requiring a diverse collection of pre-designed facility process models, known as \emph{archetypes}. \Cycamore, the CYClus 
+Additional MOdules REpository, provides common facility archetypes (separations, enrichment, reactor, etc.)
+\cite{carlsen_cycamore_2014}. Archetypes are customizable agent models which populate the simulation. Exact isotopes are dynamically tracked between facilities in discrete time steps \cite{huff_fundamental_2016}. This work seeks to add signature and observable tacking capabilities to \Cyclus. Potentially trackable signatures and observables include truck deliveries and  power draw  \cite{Hou_2016,Yilmaz_2016}. This list is expanded upon in Table \ref{tab:params} to include pyroprocessing parameters.
+
 \subsection{Open Source}
 
 \paragraph{The open source aspect of Cyclus allows for a breadth of scenarios}
