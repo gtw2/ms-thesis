@@ -1,6 +1,6 @@
 \chapter[Introduction]{Introduction}
 The diversion of significant quantities of \gls{SNM} from the nuclear fuel cycle is major non-proliferation 
-concern \cite{noauthor_iaea_2017}. These diversions must be detected in a timely manner using signatures and observables in 
+concern \cite{noauthor_serving_2017}. These diversions must be detected in a timely manner using signatures and observables in 
 order to properly safegaurd the fuel cycle. Timely detection is critical in non-proliferation to discover these shadow fuel cycles
 before diverted material is further processed. Pyroprocessing is a used nuclear fuel separations technology for advanced reactors. 
 Signatures and observables are used to detect diversion of nuclear material.
@@ -9,17 +9,22 @@ of these processes into a detailed pyroprocessing facility archetype to the modu
 detection timeliness enabled by measuring signatures and observables in various fuel cycle scenarios.
 \section{Motivation}
 \subsection{Safeguards}
-\paragraph{We want to prevent the ability to siphon material over time.}
+Currently there are no commercially operated pyroprocessing plants, however various research designs exist in national labs.
+Notably Argonne National Lab, Idaho National Lab and, in South Korea, KAERI \cite{michael_f._simpson_developments_2012, lee_advanced, frigo_conceptual_2003}. 
+Therefore, prior to construction of any design we 
+want to implement safeguards by design. Similar to security by design in next generation reactors, the goal is to include key measurement 
+points and access points to the design of the facility. Rather than learn from mistakes, in the future we aim to incorporate safety 
+into the design.
 
-\paragraph{For other fuel cycle facilities, we have plenty of operating experience to inform on safeguard construction.}
+For other fuel cycle facilities, we have plenty of operating experience to inform on safeguard construction. For example, with aqueous reprocessing
+the IAEA provides detailed flowsheets of example facilities \cite{international_atomic_energy_agency_implications_2004}.
 
-\paragraph{Rather than learn from our mistakes, in the future we should aim to incorporate safety into the design.}
 
 \subsection{Pyroprocessing}
 
 \paragraph{Pyroprocessing doesn't have industrial operational experience to make inferences from.}
 
-\paragraph{There is a need for generic pyroprocessing modelling to give an idea in fuel cycle applications.}
+\paragraph{There is a need for generic pyroprocessing modelling to inform fuel cycle applications.}
 
 \subsection{Future Fuel Cycles}
 
@@ -162,3 +167,6 @@ Despite these downsides, pyroprocessing is an efficient use of electrochemical s
 There are multiple different designs for a pyroprocessing facility, the most prominent being from ANL, INL, and KAERI. In order to encompass them all, we must take a generic approach. This is accomplished by including the following sub-processes: Voloxidation, Electroreduction, Electrorefining, and Electrowinning. While Electrorefining is the process of primary concern, each of the processes has an important in role in various processing plants. Figure 2 shows the flowsheet of a pyroprocessing plant capable of separating MOX fuel as well as fast reactor molten salt fuel.
 
 \section{Goals}
+
+The goals of this work are to appropriately model a generic pyroprocessing facility with medium fidelity capable of diversion. With this model
+in \Cyclus we wish to address the following points. 
