@@ -16,15 +16,14 @@ want to implement safeguards by design. Similar to security by design in next ge
 points and access points to the design of the facility. Rather than learn from mistakes, in the future we aim to incorporate safety 
 into the design.
 
-For other fuel cycle facilities, we have plenty of operating experience to inform on safeguard construction. For example, with aqueous reprocessing
-the IAEA provides detailed flowsheets of example facilities \cite{international_atomic_energy_agency_implications_2004}.
-
-
 \subsection{Pyroprocessing}
+For other fuel cycle facilities, we have plenty of operating experience to inform on safeguard construction. For example, with aqueous reprocessing
+the IAEA provides detailed flowsheets of example facilities \cite{international_atomic_energy_agency_implications_2004}. To combat this, multiple modeling
+tools have been developed for electrochemical processes such as SSPM and AMPYRE \cite{}. These tools take a high fidelity approach to model the
+chemistry taking place within each chamber. In order to run these tools, the user must have intimate knowlege of the specific facility the flowsheets have
+been designed for. There is a gap, however, in the medium fidelity models that can inform on broader fuel cycle applications. A generic facility
+capable of modeling changes in operational settings and various layouts has not yet been implemented to a fuel cycle simulator \cite{borrelli_approaches_2017}.
 
-\paragraph{Pyroprocessing doesn't have industrial operational experience to make inferences from.}
-
-\paragraph{There is a need for generic pyroprocessing modelling to inform fuel cycle applications.}
 
 \subsection{Future Fuel Cycles}
 
@@ -55,6 +54,7 @@ Electrochemical separation is the driving force behind pyroprocessing. Electroch
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/electrochem}
 	\caption{Basic example of movement of ion within galvanic cell \cite{angel}.}
+	\label{fig:electrochem}
 \end{figure}
 
 Figure \ref{fig:electrochem} demonstrates an electrochemical process that generates electricity as a basic example.
@@ -164,9 +164,11 @@ Currently, pyroprocessing can only be performed as a batch process, which signfi
 Additionally, the safety and economical concerns of running a molten salt plant are much greater than a nitric acid one.
 Despite these downsides, pyroprocessing is an efficient use of electrochemical separation and leader in proliferation resistant separations.
 
-There are multiple different designs for a pyroprocessing facility, the most prominent being from ANL, INL, and KAERI. In order to encompass them all, we must take a generic approach. This is accomplished by including the following sub-processes: Voloxidation, Electroreduction, Electrorefining, and Electrowinning. While Electrorefining is the process of primary concern, each of the processes has an important in role in various processing plants. Figure 2 shows the flowsheet of a pyroprocessing plant capable of separating MOX fuel as well as fast reactor molten salt fuel.
+There are multiple different designs for a pyroprocessing facility, the most prominent being from ANL, INL, and KAERI. In order to encompass them all, we must take a generic approach. This is accomplished by including the following sub-processes: Voloxidation, Electroreduction, Electrorefining, and Electrowinning. While Electrorefining is the process of primary concern, each of the processes has an important in role in various processing plants. 
 
 \section{Goals}
 
 The goals of this work are to appropriately model a generic pyroprocessing facility with medium fidelity capable of diversion. With this model
-in \Cyclus we wish to address the following points. 
+in \Cyclus we wish to explore the capability of modeling sub-facilities and diversion. In addition, we will use this higher fidelity model to verify transition
+scenarios such as EG01-EG24 within \Cyclus \cite{wigeland_nuclear_2014}. Finally we wish to evaluate optimum detector placement and measurement points for
+various facility layouts through sensitivity analysis. 
