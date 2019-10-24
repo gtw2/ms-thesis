@@ -1,59 +1,67 @@
 \chapter[Methods]{Methods}
 \section{Cyclus}
 
-\Cyclus models the flow of material through user-defined nuclear fuel cycle scenarios. Facilities in nuclear fuel cycles vary, 
-requiring a diverse collection of pre-designed facility process models, known as \emph{archetypes}. \Cycamore, the CYClus 
-Additional MOdules REpository, provides common facility archetypes (separations, enrichment, reactor, etc.)
-\cite{carlsen_cycamore_2014}. Archetypes are customizable agent models which populate the simulation. Exact isotopes are dynamically tracked between facilities in discrete time steps \cite{huff_fundamental_2016}. This work seeks to add signature and observable tacking capabilities to \Cyclus. Potentially trackable signatures and observables include truck deliveries and  power draw  \cite{Hou_2016,Yilmaz_2016}. This list is expanded upon in Table \ref{tab:params} to include pyroprocessing parameters.
+\Cyclus is a modular, agent-based nuclear fuel cycle simulator that models the flow of material through user-defined nuclear fuel cycle scenarios. \Cycamore, the CYClus 
+Additional MOdules REpository, provides common facility archetypes (separations, enrichment, reactor, etc.) \cite{carlsen_cycamore_2014}. 
+The \Cyclus framework provides benefits compared to other fuel cycle simulators, some being the open source nature, modular capabilities, and use of agents.
+Customizable agents populate simulations, allowing for a diverse use case. Exact isotopes are dynamically tracked between facilities in discrete time steps \cite{huff_fundamental_2016}.
+Isotope tracking is a key aspect of \Cyclus that we will use for signatures and observables, in addition to allowing burn-up calculations in more complex fuel cycle scenarios.
 
 \subsection{Open Source}
 
-\paragraph{The open source aspect of Cyclus allows for a breadth of scenarios}
+Many fuel cycle simulators are restricted to industry licenses or the national labs that developed them such as ORION, VISION or COSI. This restricts
+nuclear fuel cycle simulator use and development in academia, therefore a tool such as \Cyclus fills a necessary gap. The \Cyclus framework relies on
+free libraries and open development that allows continuous contributions from various universities and fields of research. This increased accessibility allows
+more diverse use and expansion on the simulator as seen with codes like CyBORG and Bright-Lite.
 
 \subsection{Modular}
 
-\paragraph{Each facility and toolkit in Cyclus is made to be modular such that they can be employed as necessary}
-
-\subsection{Archetypes}
-
-\paragraph{Archetypes are a general form of facility so multiple forms of prototypes do not have to be developed.}
-
-\section{Pyre}
-
-\subsection{Structure of Pyre}
-\paragraph{Governing Pyre Class}
+The modularity of \Cyclus also contributes to the customizability of fuel cycle scenarios. Rather than having locked material connections between facilities, the modular
+\Cyclus scenarios allow easy implementation of new connections. This is handled through the use of a Dynamic Resource Exchange (DRE) in the \Cyclus kernel. The DRE 
+uses a system of material offers and requests to find the best connections at each time step. Figure \ref{fig:cyc-api} demonstrates how the Agent API is used to mediate
+the \Cyclus kernel's DRE and the implementation of each agent.  
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.95\linewidth]{images/flowchart}
-	\caption{PyRe material flowchart \cite{borrelli_approaches_2017}.}
-	\label{fig:flowchart}
+	\includegraphics[width=0.7\linewidth]{images/cyclus-core}
+	\caption{Visualization of \Cyclus API for modular facilities, regions and institutions \cite{huff_fundamental_2016}.}
+	\label{fig:cyc-api}
 \end{figure}
 
-\paragraph{Diverter}
+The structure seen above is largely responsible for the breadth of agent types of varying fidelity. Provided new agents have the appropriate material trade offers and requests,
+facilities can be designed to any required fidelity.
 
-\paragraph{Cumulative Sum}
+\subsection{Archetypes}
 
-\paragraph{Material Trading}
+Agents contain a hierarchy of \emph{regions, institutions, and facilities} such that \emph{regions} hold one or more \emph{institutions}. Similarly, \emph{institutions}
+control \emph{facilities} necessary for the actual fuel cycle. For this work, we are most interested in the implementation of \emph{facilities} - particularly how they are defined.
+Nuclear fuel cycles contain multiple variations of the same facility requiring a diverse collection of pre-designed facility process models, known as \emph{archetypes}.
+These archetypes are used to define the physics and behavior of specific facility types such as reactors, reprocessing, enrichment, etc. Archetypes with pre-defined parameters are referred
+to as prototypes, an AP1000 for example is a prototype. Furthermore, facilities are prototypes that have been given specific data such as deployment time, location, lifetime, etc.
+
+\section{Signatures and Observables}
+
+Before constructing a pyroprocessing archetype, appropriate signatures and observables must be determined to set as our input parameters. To identify signatures and observables 
+found in a variety of pyroprocessing plants, we expand upon what was discussed in chapter 1 by looking at experimental data from electrochemical plants. The primary resources are from 
+INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these parameters into two distinct categories: direct and indirect. These correspond to signatures and observables respectively. If the inspector has direct access to material these are referred to as signatures. Whereas, indirect monitoring such as
+power draw, or thermal imaging represent a lower level of access. 
 
 \subsection{Material Balance}
-\paragraph{Voloxidation}
-
+\paragraph{Voloxidation} \mbox{}\\
 \gls{LWR} fuel must be treated and separated before proceeding with electrolytic processes. Uranium dioxide heated to 
 500$^{\circ}$C is converted to $U_3O_8$ while noble gases, carbon, and tritium are collected to decay in storage. 
 Actinides are also converted to their stable oxide forms and a majority are removed \cite{flowsheet_1998,jubin_spent_2009}. 
 Heating uranium dioxide above 800$^{\circ}$C increases voloxidation throughput.
 Cycling oxidants between H$_2$ and air also improves the U$_3$O$_8$ reaction rate \cite{jubin_spent_2009}.
 
-\begin{figure} 
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/volox}
 	\caption{Voloxidation material balance area \cite{jubin_spent_2009}.}
 	\label{fig:volox}
 \end{figure}
 
-\paragraph{Electroreduction}
-
+\paragraph{Electroreduction} \mbox{}\\
 The oxidant is converted into metallic fuel through electroreduction to be further refined through electrorefining and electrowinning. 
 Yellowcake, created in voloxidation, enters the cathode, a negatively charged metal basket. 
 A current density between 100 and 500 mA/cm$^2$ is applied to the anode in a molten LiCl salt. 
@@ -63,15 +71,14 @@ of the anode \cite{choi_electrochemical_2015}. Since Li$_2$O is used to speed up
 the operators could add more oxide than reported to \gls{IAEA}. More frequent shipments 
 of lithium oxide can be tracked as an observable to match records.
 
-\begin{figure} 
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/reduction}
 	\caption{Reduction material balance area \cite{lee_advanced_2008}.}
 	\label{fig:reduction}
 \end{figure}
 
-\paragraph{Electrorefiner}
-
+\paragraph{Electrorefiner} \mbox{}\\
 Once in metallic form, electrorefining electrochemically separates uranium and  for fuel fabrication.
 The uranium and salt mixture from reduction is fed into an anode basket suspended in a graphite cathode. 
 A LiCl-KCl eutectic is used as an electrolyte above 500$^{\circ}$C \cite{flowsheet_1998,lee_korean_2011}. 
@@ -89,7 +96,7 @@ Cathode arrangement and anode rotation speed also affect the collection of urani
 dendrites \cite{lee_advanced_2008}. A central stirrer mixes uranium dendrites stuck on 
 the vessel, improving separation efficiency and increasing throughput. 
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.85\linewidth]{images/refining}
 	\caption{Refining material balance area \cite{lee_advanced_2008}.}
@@ -99,11 +106,9 @@ the vessel, improving separation efficiency and increasing throughput.
 The electrorefining process also produces a fission product waste stream which requires monitoring. 
 The following products are produced and tracked in \gls{PyRe} at this step: Tc, Ag, Pd, Rh, Ru, Mo and Zr \cite{flowsheet_1998}. 
 Uranium and \gls{TRU} product streams separated at this stage are sent to fuel fabrication, while the remaining salt is reformed as an oxidant and recirculated.
-Separation efficiencies are taken after recirculation, and treated as a once-through cycle. Cyclus' time step
-is not detailed enough to benefit from analyzing intra-batch processes. Therefore, only end-state efficiencies are used rather than an explicit model.
+Separation efficiencies are taken after recirculation, and treated as a once-through cycle. 
 
-\paragraph{Electrowinner}
-
+\paragraph{Electrowinner} \mbox{}\\
 Molten salt containing \glspl{TRU} from electrorefining is separated through electrowinning. This process separates trace uranium quantities, lanthanides and fission products. 
 At 500$^{\circ}$C there is approximately 99 wt\% reduction in actinides and lanthanides \cite{flowsheet_1998}. 
 Throughput also depends on material choice for the inert electrodes, impacting separation 
@@ -112,31 +117,121 @@ prevent Cl$_2$ from corroding the anode \cite{kim_development_2013,choi_electroc
 depends on material choice for the anode shroud since a nonporous shroud limits ion pathways to the anode contact points.
 Higher porosity corresponds to free ion paths and a higher current. Increased currents reduce the separation time for electroreduction and electrowinning \cite{choi_electrochemical_2015}.
 
-\begin{figure} 
+\begin{figure}[h] 
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/winning}
 	\caption{Winning material balance area.}
 	\label{fig:winning}
 \end{figure}
 
+\subsection{Signatures}
+
+Potentially trackable signatures and observables include truck deliveries and  power draw  \cite{Hou_2016,Yilmaz_2016}. This list is expanded upon in Table \ref{tab:params} to include pyroprocessing parameters. For this work we narrow down the list to more facility specific parameters rather than observables like the parking lot or truck movement. We also use this table
+to determine the most common operational settings such as temperature, pressure, current and flow rate.
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{0.9\linewidth}{llcr}
+		\hline
+		\textbf{Sub-process} & \textbf{Parameters} & \textbf{S \& O} & \textbf{Refs} \\
+		\hline
+		Voloxidation & Volume & Tritium & \cite{jubin_spent_2009} \\
+		& Oxidant & $^{14}$C & \cite{flowsheet_1998} \\
+		& Flow Rate &  $^{129}$I &  \\
+		& Temperature & $^{85}$Kr &  \\
+		& Time & Actinides & \\ \hline
+		Electroreduction & Volume & $^{90}$Sr & \cite{borrelli_approaches_2017} \\
+		& Batch Size & $^{135}$Cs & \cite{flowsheet_1998} \\
+		& Li$_2$O wt\% & $^{137}$Cs & \cite{choi_electrochemical_2015} \\
+		& Current & Power Draw & \cite{lee_korean_2011} \\
+		& Porosity & Shipments & \cite{lee_modeling_2016} \\
+		& Distillation Speed & Throughput & \\ 
+		& Time & & \\ \hline
+		Electrorefining & Volume & Fission Products & \cite{lee_advanced_2008} \\
+		& Time & Power Draw & \cite{lee_korean_2011} \\
+		& Material & Waste Salt & \cite{flowsheet_1998} \\
+		& Anode Rotation & Vacuum Pressure & \cite{koyama_development_2012} \\
+		& Stirrer Speed & Temperature & \cite{kim_development_2013} \\
+		& Pressure & Throughput & \\
+		& Temperature & & \\ \hline
+		Electrowinning & Current & Power Draw & \cite{flowsheet_1998} \\
+		& Shroud Material & Cadmium Waste & \cite{lee_korean_2011} \\
+		& Time & Fission Products & \cite{borrelli_approaches_2017} \\
+		& Flow Rate & Lanthanides & \\
+		&  & $^{135}$Cs & \\
+		&  & $^{137}$Cs & \\ \hline
+		Facility & Throughput & Shipments & \\
+		& Batch Size & Parking Lot & \\
+		& & Thermal Image & \\
+		\hline
+	\end{tabularx}
+	\caption {Archetype inputs and signatures \& observables at each sub-process.}
+	\label {tab:params}
+\end{table}
+
 \subsection{Waste Forms}
-\paragraph{Metal Waste}
 
-\paragraph{Ceramic Waste}
+Waste from pyroprocessing is split into 3 main waste streams that we can directly measure their \emph{signatures}. Signatures require direct access to the waste streams to monitor.
+These techniques vary depending on the waste form. Leading approaches include non-destrucive assay, multiplicity counting, and measuring a Plutonium to Curium ratio \cite{lee_determination_2012,noauthor_non-destructive_nodate}.
 
-\paragraph{Vitrified Waste}
+\section{Pyre}
 
+As per the goal of this project, Pyre was designed such that multiple potential pyroprocessing facilities can be modeled at medium fidelity. To accomplish this, and improve upon
+the lower fidelity of the separations archetype found in \Cycamore, we inform our separation efficiencies with higher fidelity models including SSPM and AMPYRE \cite{cipiti_modeling_2012,maggos_update_2015}. The below Figure \ref{fig:flowchart} incorporates material balances for each sub-process and highlights some key parameters we
+either use in the input file or look at for diversion.
+
+\subsection{Structure of Pyre}
+
+The archetype separates each sub-process to be handled independently, letting the user determine which aspects are necessary for their facility. We took this approach to also
+allow for better handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. 
+\paragraph{Governing Pyre Class} \mbox{}\\
+The archetype separates each sub-process to be handled independently, letting the user determine which aspects are necessary for their facility. Each sub-process is capable
+of handling its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the waste recorded. Waste streams are
+used to verify nominal operation before being traded to a storage facility. Product streams are further refined by each sub-process until the fuel fabrication stage.
+The pure Uranium stream and U/TRU stream are then offered up for trade with a fuel fabricator.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/flowchart}
+	\caption{Pyre material flowchart \cite{borrelli_approaches_2017}.}
+	\label{fig:flowchart}
+\end{figure}
+
+\paragraph{Diverter} \mbox{}\\
+Figure \ref{fig:diverttype} shows the difference between Nefarious Diversion, in gray, and Operator Diversion, in Orange. The gray line shows normal operation where diversion occurs
+through the shipment, and can be detected by a discrepancy in shipment records. The more difficult case to handle, shown in orange, imagines an inside man altering operational settings
+to increase product over reported quantities. The scenario we are concerned with is Operator Diversion, we wish to determine the most important points in the plant to monitor for potential
+diversion. A side effect of this goal is that we must be able to detect diversion by changing key operational settings.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/westphal-diversion}
+	\caption{A flowchart demonstrating the main forms of material diversion.}
+	\label{fig:diverttype}
+\end{figure}
+
+\Cyclus does not natively handle diversion from inside facilities as required for the goals for pyre. We implemented a higher fidelity diversion model through the
+diverter class to handle operator and nefarious diversion. This class is specific to the Pyre archetype currently, as the diversion facility must be setup to allow it.
+The diverter class' goal is to inform the pyre facility what parameters are being changed to divert material. The algorithm used for this can be seen in Figure \ref{fig:divflow}
+which inputs the subprocess that contains an inside man, the parameters he has access to, and how much material he wishes to divert. The diverter directs this information to the
+appropriate sub-process which then uses a Bisection function to determine the parameter value associated with the new product.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.65\linewidth]{images/divertflow}
+	\caption{Pyre diverter class flowchart.}
+	\label{fig:divflow}
+\end{figure}
 
 \subsection{User Input}
-\paragraph{The facility is fully configurable through the input file}
-
-\paragraph{Multiple facilities can be configured by altering sub-processes.}
-
-\paragraph{Multiple diversion scenarios can be handled with no change to the source code.}
-
+Pyre, as with all \Cyclus archetypes, is fully configurable through the text based input file. The input consists of the operational settings shown in Table \ref{tab:params}
+and the separation efficiency for each isotope. The efficiencies input for each sub-process correspond to that facility's ideal state. Operational settings act as a capacity factor,
+reducing the overall efficiency to match those seen in test facilities. This input structure allows users to follow predefined example facilities, or input their own separation
+efficiencies. 
 
 \section{Testing}
 
 \subsection{Reproducibility}
-
-\subsection{Modular}
+Cooperation and co-development are a major part of open source development. As such, any addition to open source code in particular should be well tested for outside developers.
+Thorough testing allows concurrent or future developers to maintain and expand the project while ensuring all capabilities are maintained. Following these guidelines, a number
+of tests verifying trade capability and sub-process physics are added to ensure reproducibility. The details of these verifications will be explained further in Chapter 3.
