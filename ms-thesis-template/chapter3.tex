@@ -28,7 +28,6 @@ In addition to demonstrating sub-process capabilities, material transactions wit
 
 \subsection{Isotopic Streams}
 \begin{figure} [h]
-	\centering
 	\includegraphics[width=\linewidth]{images/avg-isotope-comp}
 	\caption{Isotopic Composition of Average Waste Streams}
 	\label{fig:avg-isotope-comp}
@@ -38,19 +37,17 @@ Another key aspect of material transactions is the composition of each shipment.
 separation and trading with various facilities. This is done in a couple ways within Pyre, the first being various stream types such as waste or product,
 and the second being isotopic composition withing these streams. In Figure \ref{fig:avg-isotope-comp} the 3 waste streams shown in Figure \ref{fig:timeseries-waste}
 are compared isotopicaly. We do this comparison to further investigate the performance of each sub-process by identifying the appropriate separation of elements.
-We can see that the Electrowinner, shown in green, correctly contains heavier elements such as lanthanides while the Electroreductor, in red, is responsible for the lighter metals
+The Electrowinner, shown in green, correctly contains heavier elements such as lanthanides while the Electroreductor, in red, is responsible for the lighter metals
 as well as changing oxidation states which is not reflected in these streams.
 
 \subsection{Simple Diversion}
 \begin{figure} [h]
-	\centering
 	\includegraphics[width=\linewidth]{images/current-isotope-comp}
 	\caption{Isotopic Composition of Current Diverted Waste Streams}
 	\label{fig:current-isotope-comp}
 \end{figure}
 
 \begin{figure} [h]
-	\centering
 	\includegraphics[width=\linewidth]{images/isotopic-comp-range}
 	\caption{Range of Isotopic Values for maximum potential diversion.}
 	\label{fig:isotopic-range}
@@ -66,25 +63,66 @@ respectively. Although an unrealistic scenario since diversion is easily detecte
 Figure \ref{fig:isotopic-range} shows that after the 20 months scenario approximately a significant quantity of plutonium is unaccounted for. As such, inspections would need to occur
 at a similar interval, depending on the reported capacity.
 
-\section{US Fuel Cycle}
+\section{US Fuel Cycle Transition}
 
-After testing the capabilities of Pyre in a small scenario, we want to implement the archetype in the EG01-EG24 transition scenario described in the goals of this work.
-\begin{figure} [h]
+After testing the capabilities of Pyre in a small scenario, we implement the archetype in the EG01-EG24 transition scenario described in the goals of this work. 
+
+\begin{table}[h]
 	\centering
+	\begin{tabularx}{0.5\linewidth}{lcc}
+		\hline
+		\textbf{Details} & \textbf{Value} & \textbf{Unit} \\
+		\hline \hline
+		Simulation start & 1959 & years \\ \hline
+		Simulation end & 2215 & years \\ \hline
+		LWR Lifetime & 60 & years \\ 
+		50\% of LWRs & 80 & years \\ \hline
+		Transition start & 2015 & years \\ \hline
+		Reprocessing Facility & PRIDE Pyre & -- \\ \hline
+		New LWR lifetime & 80 & years \\ \hline
+		SFR Lifetime & 80 & years \\ \hline
+		SFR breeding ratio & 1.014 & -- \\ \hline
+		Reprocessing Facility & INL Pyre & -- \\ \hline
+	\end{tabularx}
+	\caption {Transition Scenario setup and details.}
+	\label {tab:setup}
+\end{table}
+
+Table \ref{tab:setup} shows the setup for a Sodium Fast Reactor transition. In addition to the above information, the scenario is initiated with 200 LWRs with another 200 being deployed
+in 2015 at the transition period. Two Pyre prototypes are deployed to handle the different fuel types seen in the above scenario. The PRIDE-based facility is configured to reprocess ceramic
+LWR waste while the INL-based facility handles metallic SFR fuel, and is deployed after the transition. 
+
+Figure \ref{fig:net-cap} demonstrates the deployment and decommissioning of reactors in this scenario. In order to meet the average 1\% annual power growth, additional reactors are necessary
+while appropriate SFR fuel quantities are accumulated.
+
+\begin{figure} [h]
 	\includegraphics[width=\linewidth]{images/transition-netcap}
 	\caption{Net Power Capacity over Time}
 	\label{fig:net-cap}
 \end{figure}
 
+\subsection{Pyre Performance}
+
+To verify functionality of the Pyre archetype, rather than the transition scenario itself, we take a look at the fuel production and utilization rather than facility deployment.
+Figures \ref{fig:TRU-util} and \ref{fig:u-util} demonstrate the appropriate reprocessing and fabrication of SFR fuel. Figure \ref{fig:TRU-util} shows around year 2125 the SFR pyroprocessing
+plants begin producing a sustainable amount of fuel. Since all SFRs are breeders in this scenario, we can see that as more reactors are deployed the TRU stock increases exponentially at year 2150. Similarly, the overall utilization of Uranium improves as reprocessing is heavily used.
+
 \begin{figure} [h]
-	\centering
 	\includegraphics[width=\linewidth]{images/transition-TRUutil}
-	\caption{TRU utilization over Time}
+	\caption{TRU utilization over time.}
 	\label{fig:TRU-util}
 \end{figure}
 
+\begin{figure} [h]
+	\includegraphics[width=0.8\linewidth]{images/u-util}
+	\caption{Uranium utilization over time.}
+	\label{fig:u-util}
+\end{figure}
+
+Figure \ref{fig:fuel-mass} illustrates the complete transition from LWRs and UOX fuel to SFRs at year 2180. As seen in Figures \ref{fig:TRU-util} and \ref{fig:u-util}, TRU fuel
+production has increased enough to self-sustain the next generation of SFR reactors and decommission remaining LWRs.
+
 \begin{figure}[h]
-	\centering
 	\includegraphics[width=\linewidth]{images/transition-fuelmass}
 	\caption{Mass of Fuel Types over Time}
 	\label{fig:fuel-mass}
