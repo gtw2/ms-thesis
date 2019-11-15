@@ -66,13 +66,13 @@ While temperature is a key aspect to the electrorefiner, Figure \ref{fig:ref-tem
 in diminishing returns.
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/temp-sa-comp}
+	\includegraphics[width=\linewidth]{images/temperature-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Refiner temperatures.}
 	\label{fig:ref-temp-sa}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/temp-sa-comp}
+	\includegraphics[width=\linewidth]{images/temperature-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various Refiner temperatures.}
 	\label{fig:ref-temp-diff}
 \end{figure}
@@ -90,63 +90,99 @@ functionality.
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/pressure-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various Refiner pressures.}
 	\label{fig:ref-press-diff}
 \end{figure}
 
 \subsection{Stirrer Speed}
 
+The central stirrer is another setting particular to advanced refining techniques \cite{lee_advanced_2008}. We are observing this setting as its a rather simple capability to
+add a mixer. Figure \ref{fig:ref-rot-sa} shows the isotopic distribution associated with a
+range of different stirrer speeds. Higher than 100 rpm results in uranium dendrites returning
+to the salt. Therefore, in Figure \ref{fig:ref-rot-diff} we use 0 rpm as our baseline to represent facilities with no stirrer, and 100 rpm as our maximum. 
+
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/ref-rot-comp}
+	\includegraphics[width=\linewidth]{images/rotation-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
 	\label{fig:ref-rot-sa}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/ref-rot-comp}
+	\includegraphics[width=\linewidth]{images/rotation-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
 	\label{fig:ref-rot-diff}
 \end{figure}
 
 \subsection{Current}
 
+The primary setting for the electrowinning sub-process is the current. An important aspect of
+the current's relationship with efficiency is the decrease in separation beginning around 10 A.
+This is seen in Figures \ref{fig:win-cur-sa} and \ref{fig:win-cur-diff} as 10 A is close to the efficiency of 5 A. This relationship occurs due to increasing voltage no longer aiding in separation of some lanthanides as described in chapter 2. Figure \ref{fig:win-cur-diff} shows that the key operating range lies within 6-8 A.
+
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/current-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner currents.}
 	\label{fig:win-cur-sa}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/current-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner currents.}
 	\label{fig:win-cur-diff}
 \end{figure}
 
 \subsection{Flowrate}
 
+Similar to the central stirrer of the electrorefiner, increasing the flowrate through the electrowinner can aid removal of additional lanthanides and TRU. Flowrates shown are linear rates, with the bounds corresponding to minimum and maximum values tested in experimental facilities. Figures \ref{fig:win-flow-sa} and \ref{fig:win-flow-diff} demonstrate a steady increase in removal rates with increasing flow.
+
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/flowrate-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner flowrates.}
 	\label{fig:win-flow-sa}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/flowrate-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner flowrates.}
 	\label{fig:win-flow-diff}
 \end{figure}
 
 \subsection{Reprocessing Time}
 
+The final setting we chose to observe was time spent in the electrowinner. We chose this sub-process since it is closely related to the U/TRU product stream. Comparing Figure \ref{fig:win-time-diff} to Figure \ref{fig:win-flow-diff}, we can see that increasing 
+reprocessing time results in more divertable material than the flowrate. 
+
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/time-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner reprocessing durations.}
 	\label{fig:win-time-sa}
 \end{figure}
 
 \begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\includegraphics[width=\linewidth]{images/time-sa-diff}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner reprocessing durations.}
 	\label{fig:win-time-diff}
 \end{figure}
+
+\section{Parameter Comparison}
+
+The increase due to the previous six operational settings were normalized against their baseline
+to determine the most impactful systems. These values are collected in Table \ref{tab:compare}.
+
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\linewidth}{lcccccc}
+		\hline
+		\textbf{Group Number} & \textbf{Temp} & \textbf{Pressure} & \textbf{Stir Speed} & \textbf{Current}
+		& \textbf{Flowrate} & \textbf{Time} \\
+		\hline \hline
+		1 & 1959 & years \\ \hline
+		2 & 2215 & years \\ \hline
+		3 & 60 & years \\ 
+		4 & 80 & years \\ \hline
+		5 & 2015 & years \\ \hline
+	\end{tabularx}
+	\caption {Comparison of Operational Settings' Impact on Divertable Material.}
+	\label {tab:compare}
+\end{table}
