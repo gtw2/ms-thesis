@@ -49,34 +49,64 @@ Figure \ref{fig:divertmat}.
 	\label{fig:divertmat}
 \end{figure}
 
-\section{Test Cases}
-
-\subsection{PRIDE}
-
-\subsection{INL}
-
-\subsection{ANL}
-
 \section{Sensitivity Analysis}
 
 Sensitivity analysis is an important aspect of this work to know the limits of monitoring these facilities. In this work we use Dakota to alter \Cyclus input files, allowing us to easily
 run batches of scenarios. To properly use Dakota with \Cyclus, we must use DCWrapper, which uses python to interface between Dakota and \Cyclus' xml input files. 
 Key parameters were run over a range of values for diversion to verify the archetype's capabilities and identify operational ranges. Parameters were selected from the most attractive
 sub-processes for diversion, the electrorefiner and electrowinner. These two processes are responsible for the production of Uranium and U/TRU ingots, therefore sensitivity analysis was run
-on each of their key parameters: Temperature, Current, Flowrate, Pressure, Stirrer Speed and Reprocessing Time.
+on each of their key parameters: Temperature, Current, Flowrate, Pressure, Stirrer Speed, and Reprocessing Time.
 
 \subsection{Temperature}
+
+The first setting for consideration is the electrorefiner's temperature. As discussed in methodology, the range for this setting is 500 to 1000 $^\circ C$. However, operation
+typically occurs above 750 $^\circ C$. For each setting we observe how much material can be diverted within a month; these values can be seen isotopically in Figure \ref{fig:ref-temp-sa}.
+The stream corresponding to 750 $^\circ C$ is then subtracted from remaining streams to determine the impact of increasing temperature on divertable material.
+While temperature is a key aspect to the electrorefiner, Figure \ref{fig:ref-temp-diff} shows that when approaching 1000 $^\circ C$ efficiency does not increase significantly resulting
+in diminishing returns.
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{images/temp-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Refiner temperatures.}
-	\label{fig:ref-pres-sa}
+	\label{fig:ref-temp-sa}
 \end{figure}
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{images/temp-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Refiner temperatures.}
-	\label{fig:ref-pres-diff}
+	\label{fig:ref-temp-diff}
+\end{figure}
+
+\subsection{Pressure}
+
+Available in advanced electrorefiners, vacuum pressure can improve separation efficiency as well. Similar to our analysis of temperature, isotopic compositions of
+divertable material can be seen in Figure \ref{fig:ref-press-sa}. Our baseline for the comparison is atmospheric pressure as this will represent facilities lacking this
+functionality. 
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\caption{Isotopic composition of the Diverted material stream at various Refiner pressures.}
+	\label{fig:ref-press-sa}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
+	\caption{Isotopic composition of the Diverted material stream at various Refiner pressures.}
+	\label{fig:ref-press-diff}
+\end{figure}
+
+\subsection{Stirrer Speed}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{images/ref-rot-comp}
+	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
+	\label{fig:ref-rot-sa}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{images/ref-rot-comp}
+	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
+	\label{fig:ref-rot-diff}
 \end{figure}
 
 \subsection{Current}
@@ -105,34 +135,6 @@ on each of their key parameters: Temperature, Current, Flowrate, Pressure, Stirr
 	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
 	\caption{Isotopic composition of the Diverted material stream at various Electrowinner flowrates.}
 	\label{fig:win-flow-diff}
-\end{figure}
-
-\subsection{Pressure}
-
-\begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
-	\caption{Isotopic composition of the Diverted material stream at various Refiner pressures.}
-	\label{fig:win-cur-sa}
-\end{figure}
-
-\begin{figure}
-	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
-	\caption{Isotopic composition of the Diverted material stream at various Refiner pressures.}
-	\label{fig:win-cur-diff}
-\end{figure}
-
-\subsection{Stirrer Speed}
-
-\begin{figure}
-	\includegraphics[width=\linewidth]{images/ref-rot-comp}
-	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
-	\label{fig:ref-rot-sa}
-\end{figure}
-
-\begin{figure}
-	\includegraphics[width=\linewidth]{images/ref-rot-comp}
-	\caption{Isotopic composition of the Diverted material stream at various central stirrer speeds.}
-	\label{fig:ref-rot-diff}
 \end{figure}
 
 \subsection{Reprocessing Time}

@@ -9,7 +9,7 @@ Isotope tracking is a key aspect of \Cyclus that we will use for signatures and 
 
 \subsection{Open Source}
 
-Many fuel cycle simulators are restricted to industry licenses or the national labs that developed them such as ORION, VISION or COSI. This restricts
+Many fuel cycle simulators are restricted to industry licenses or the national labs that developed them such as ORION, VISION, or COSI. This restricts
 nuclear fuel cycle simulator use and development in academia, therefore a tool such as \Cyclus fills a necessary gap. The \Cyclus framework relies on
 free libraries and open development that allows continuous contributions from various universities and fields of research. This increased accessibility allows
 more diverse use and expansion on the simulator as seen with codes like CyBORG and Bright-Lite.
@@ -17,18 +17,18 @@ more diverse use and expansion on the simulator as seen with codes like CyBORG a
 \subsection{Modular}
 
 The modularity of \Cyclus also contributes to the customizability of fuel cycle scenarios. Rather than having locked material connections between facilities, the modular
-\Cyclus scenarios allow easy implementation of new connections. This is handled through the use of a Dynamic Resource Exchange (DRE) in the \Cyclus kernel. The DRE 
-uses a system of material offers and requests to find the best connections at each time step. Figure \ref{fig:cyc-api} demonstrates how the Agent API is used to mediate
+\Cyclus scenarios allow easy implementation of new connections. This is handled through the use of a dynamic resource exchange (DRE) in the \Cyclus kernel. The DRE 
+uses a system of material offers and requests to find the best connections at each time step. Figure \ref{fig:cyc-api} demonstrates how the agent API is used to mediate
 the \Cyclus kernel's DRE and the implementation of each agent.  
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/cyclus-core}
-	\caption{Visualization of \Cyclus API for modular facilities, regions and institutions \cite{huff_fundamental_2016}.}
+	\caption{Visualization of \Cyclus API for modular facilities, regions, and institutions \cite{huff_fundamental_2016}.}
 	\label{fig:cyc-api}
 \end{figure}
 
-The structure seen above is largely responsible for the breadth of agent types of varying fidelity. Provided new agents have the appropriate material trade offers and requests,
+The structure seen in Figure \ref{fig:cyc-api} is largely responsible for the breadth of agent types of varying fidelity. Provided new agents have the appropriate material trade offers and requests,
 facilities can be designed to any required fidelity.
 
 \subsection{Archetypes}
@@ -37,14 +37,14 @@ Agents contain a hierarchy of \emph{regions, institutions, and facilities} such 
 control \emph{facilities} necessary for the actual fuel cycle. For this work, we are most interested in the implementation of \emph{facilities} - particularly how they are defined.
 Nuclear fuel cycles contain multiple variations of the same facility requiring a diverse collection of pre-designed facility process models, known as \emph{archetypes}.
 These archetypes are used to define the physics and behavior of specific facility types such as reactors, reprocessing, enrichment, etc. Archetypes with pre-defined parameters are referred
-to as prototypes, an AP1000 for example is a prototype. Furthermore, facilities are prototypes that have been given specific data such as deployment time, location, lifetime, etc.
+to as prototypes (an AP1000 for example is a prototype). Furthermore, facilities are prototypes that have been given specific data such as deployment time, location, lifetime, etc.
 
 \section{Signatures and Observables}
 
 Before constructing a pyroprocessing archetype, appropriate signatures and observables must be determined to set as our input parameters. To identify signatures and observables 
 found in a variety of pyroprocessing plants, we expand upon what was discussed in chapter 1 by looking at experimental data from electrochemical plants. The primary resources are from 
-INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these parameters into two distinct categories: direct and indirect. These correspond to signatures and observables respectively. If the inspector has direct access to material these are referred to as signatures. Whereas, indirect monitoring such as
-power draw, or thermal imaging represent a lower level of access. 
+INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these parameters into two distinct categories: direct and indirect, corresponding to signatures and observables, respectively. If the inspector has direct access to material these are referred to as signatures, whereas, indirect monitoring, such as
+power draw or thermal imaging, represent a lower level of access. 
 
 \subsection{Material Balance}
 \paragraph{Voloxidation} \mbox{}\\
@@ -65,7 +65,7 @@ Cycling oxidants between H$_2$ and air also improves the U$_3$O$_8$ reaction rat
 The oxidant is converted into metallic fuel through electroreduction to be further refined through electrorefining and electrowinning. 
 Yellowcake, created in voloxidation, enters the cathode, a negatively charged metal basket. 
 A current density between 100 and 500 mA/cm$^2$ is applied to the anode in a molten LiCl salt. 
-The electrolytic reduction process primarily results in diffusion of Cs, Ba and Sr, along with reduction and conversion of zirconium into metallic form \cite{choi_electrochemical_2015,flowsheet_1998}.
+The electrolytic reduction process primarily results in diffusion of Cs, Ba and Sr, along with reduction and conversion of Zr into metallic form \cite{choi_electrochemical_2015,flowsheet_1998}.
 Electroreduction can further improve its throughput by adding Li$_2$O as a catalyst; this catalyst also prevents dissolution 
 of the anode \cite{choi_electrochemical_2015}. Since Li$_2$O is used to speed up the reaction,
 the operators could add more oxide than reported to \gls{IAEA}. More frequent shipments 
@@ -79,17 +79,16 @@ of lithium oxide can be tracked as an observable to match records.
 \end{figure}
 
 \paragraph{Electrorefiner} \mbox{}\\
-Once in metallic form, electrorefining electrochemically separates uranium and  for fuel fabrication.
+Once in metallic form, electrorefining electrochemically separates uranium and TRUs for fuel fabrication.
 The uranium and salt mixture from reduction is fed into an anode basket suspended in a graphite cathode. 
 A LiCl-KCl eutectic is used as an electrolyte above 500$^{\circ}$C \cite{flowsheet_1998,lee_korean_2011}. 
 Uranium dissolves at the anode to recombine at the cathode as metallic uranium.
-\glsreset{TRU} 
-Waste \glspl{TRU} and lanthanides are in a soluble chloride form  while fission products and cladding remain in the anode
+Waste TRUs and lanthanides are in a soluble chloride form  while fission products and cladding remain in the anode
 basket. Finally, actinides and fission products are removed from the cladding electrochemically \cite{lee_korean_2011}.
 
 Lee et al. \cite{lee_advanced_2008} show decreasing system pressure improves removal efficiency. 
 Temperature, however, exhibits the opposite effect: as temperature decreases so does salt removal. This comes into effect 
-particularly depending on material choice of instrumentation and containment \cite{lee_advanced_2008}. 
+particularly depending on instrumentation and containment material choice \cite{lee_advanced_2008}. 
 Iron, for example, limits operating temperature because a eutectic forms at 725$^{\circ}$C \cite{chapman_revision_1984}.
 In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency. 
 Cathode arrangement and anode rotation speed also affect the collection of uranium 
@@ -104,9 +103,9 @@ the vessel, improving separation efficiency and increasing throughput.
 \end{figure}
 
 The electrorefining process also produces a fission product waste stream which requires monitoring. 
-The following products are produced and tracked in \gls{PyRe} at this step: Tc, Ag, Pd, Rh, Ru, Mo and Zr \cite{flowsheet_1998}. 
+The following products are produced and tracked in \gls{PyRe} at this step: Tc, Ag, Pd, Rh, Ru, Mo, and Zr \cite{flowsheet_1998}. 
 Uranium and \gls{TRU} product streams separated at this stage are sent to fuel fabrication, while the remaining salt is reformed as an oxidant and recirculated.
-Separation efficiencies are taken after recirculation, and treated as a once-through cycle. 
+Separation efficiencies are taken after recirculation and treated as a once-through cycle. 
 
 \paragraph{Electrowinner} \mbox{}\\
 Molten salt containing \glspl{TRU} from electrorefining is separated through electrowinning. This process separates trace uranium quantities, lanthanides and fission products. 
@@ -171,8 +170,8 @@ to determine the most common operational settings such as temperature, pressure,
 
 \subsection{Waste Forms}
 
-Waste from pyroprocessing is split into 3 main waste streams that we can directly measure their \emph{signatures}. Signatures require direct access to the waste streams to monitor.
-These techniques vary depending on the waste form. Leading approaches include non-destrucive assay, multiplicity counting, and measuring a Plutonium to Curium ratio \cite{lee_determination_2012,noauthor_non-destructive_nodate}.
+Waste from pyroprocessing is split into 3 main waste streams in which we can directly measure their \emph{signatures}. Signatures require direct access to the waste streams to monitor.
+These techniques vary depending on the waste form. Leading approaches include non-destructive assay, multiplicity counting, and a plutonium to curium ratio measurement \cite{lee_determination_2012,noauthor_non-destructive_nodate}.
 
 \section{Pyre}
 
@@ -186,9 +185,9 @@ The archetype separates each sub-process to be handled independently, letting th
 allow for better handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. 
 \paragraph{Governing Pyre Class} \mbox{}\\
 The archetype separates each sub-process to be handled independently, letting the user determine which aspects are necessary for their facility. Each sub-process is capable
-of handling its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the waste recorded. Waste streams are
+of handling its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the wastes are recorded. Waste streams are
 used to verify nominal operation before being traded to a storage facility. Product streams are further refined by each sub-process until the fuel fabrication stage.
-The pure Uranium stream and U/TRU stream are then offered up for trade with a fuel fabricator.
+The pure uranium stream and U/TRU stream are then offered up for trade with a fuel fabricator.
 
 \begin{figure}[h]
 	\centering
@@ -198,9 +197,9 @@ The pure Uranium stream and U/TRU stream are then offered up for trade with a fu
 \end{figure}
 
 \paragraph{Diverter} \mbox{}\\
-Figure \ref{fig:diverttype} shows the difference between Nefarious Diversion, in gray, and Operator Diversion, in Orange. The gray line shows normal operation where diversion occurs
+Figure \ref{fig:diverttype} shows the difference between nefarious diversion, in gray, and operator diversion, in orange. The gray line shows normal operation where diversion occurs
 through the shipment, and can be detected by a discrepancy in shipment records. The more difficult case to handle, shown in orange, imagines an inside man altering operational settings
-to increase product over reported quantities. The scenario we are concerned with is Operator Diversion, we wish to determine the most important points in the plant to monitor for potential
+to increase product over reported quantities. The scenario we are concerned with is operator diversion; we wish to determine the most important points in the plant to monitor for potential
 diversion. A side effect of this goal is that we must be able to detect diversion by changing key operational settings.
 
 \begin{figure}[h]
@@ -210,11 +209,11 @@ diversion. A side effect of this goal is that we must be able to detect diversio
 	\label{fig:diverttype}
 \end{figure}
 
-\Cyclus does not natively handle diversion from inside facilities as required for the goals for pyre. We implemented a higher fidelity diversion model through the
-diverter class to handle operator and nefarious diversion. This class is specific to the Pyre archetype currently, as the diversion facility must be setup to allow it.
-The diverter class' goal is to inform the pyre facility what parameters are being changed to divert material. The algorithm used for this can be seen in Figure \ref{fig:divflow}
-which inputs the subprocess that contains an inside man, the parameters he has access to, and how much material he wishes to divert. The diverter directs this information to the
-appropriate sub-process which then uses a Bisection function to determine the parameter value associated with the new product.
+\Cyclus does not natively handle diversion from inside facilities as required for the goals for Pyre. We implemented a higher fidelity diversion model through the
+diverter class to handle operator and nefarious diversion. This class is specific to the Pyre archetype currently, as the diversion facility must be set up to allow it.
+The diverter class' goal is to inform the Pyre facility what parameters are being changed to divert material. The algorithm used for this can be seen in Figure \ref{fig:divflow}
+which inputs the sub-process that contains an inside man, the parameters he has access to, and how much material he wishes to divert. The diverter directs this information to the
+appropriate sub-process which then uses a bisection function to determine the parameter value associated with the new product.
 
 \begin{figure}[h]
 	\centering
@@ -225,7 +224,7 @@ appropriate sub-process which then uses a Bisection function to determine the pa
 
 \subsection{User Input}
 Pyre, as with all \Cyclus archetypes, is fully configurable through the text based input file. The input consists of the operational settings shown in Table \ref{tab:params}
-and the separation efficiency for each isotope. The efficiencies input for each sub-process correspond to that facility's ideal state. Operational settings act as a capacity factor,
+and the separation efficiency for each isotope. The efficiencies input for each sub-process corresponds to that facility's ideal state. Operational settings act as a capacity factor,
 reducing the overall efficiency to match those seen in test facilities. This input structure allows users to follow predefined example facilities, or input their own separation
 efficiencies. 
 

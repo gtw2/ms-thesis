@@ -3,7 +3,7 @@
 Several simulations were run to verify the capabilities described of Pyre. Before considering complex fuel cycles, we must first verify
 capabilities within Cyclus. Cyclus archetypes are expected to meet a number of capabilities such as trading, decommissioning, and isotope tracking.
 To demonstrate these functionalities we ran a simple scenario with one source, sink, and pyre facility. The pyre facility is run at default values 
-corresponding to an average installation. The source facility provides lwr waste to separate with a composition given by Duderstadt. 
+corresponding to an average installation. The source facility provides light water reactor (LWR) waste to separate with a composition given by Duderstadt. 
 
 \begin{figure} [h]
 	\centering
@@ -21,9 +21,9 @@ corresponding to an average installation. The source facility provides lwr waste
 	\label{fig:timeseries-waste}
 \end{figure}
 
-The above figures \ref{fig:timeseries-prod} and \ref{fig:timeseries-waste} track the shipment of material from the pyre facility to the sink.
+The above Figures \ref{fig:timeseries-prod} and \ref{fig:timeseries-waste} track the shipment of material from the pyre facility to the sink.
 Individual waste streams are identified and verify the functionality of each sub-process in this LWR configuration. Since the scenario is run with
-constant parameters and number of facilities the transactions are expected to remain constant and the above figures meet this expectation.
+constant parameters and number of facilities, the transactions are expected to remain constant and the above figures meet this expectation.
 In addition to demonstrating sub-process capabilities, material transactions with other Cyclus facilities can also be observed as expected.
 
 \subsection{Isotopic Streams}
@@ -35,9 +35,9 @@ In addition to demonstrating sub-process capabilities, material transactions wit
 
 Another key aspect of material transactions is the composition of each shipment. To meet Cyclus standards we must be able to track each isotope for
 separation and trading with various facilities. This is done in a couple ways within Pyre, the first being various stream types such as waste or product,
-and the second being isotopic composition withing these streams. In Figure \ref{fig:avg-isotope-comp} the 3 waste streams shown in Figure \ref{fig:timeseries-waste}
-are compared isotopicaly. We do this comparison to further investigate the performance of each sub-process by identifying the appropriate separation of elements.
-The Electrowinner, shown in green, correctly contains heavier elements such as lanthanides while the Electroreductor, in red, is responsible for the lighter metals
+and the second being isotopic composition within these streams. In Figure \ref{fig:avg-isotope-comp} the 3 waste streams shown in Figure \ref{fig:timeseries-waste}
+are compared isotopically. We do this comparison to further investigate the performance of each sub-process by identifying the appropriate separation of elements.
+The electrowinner, shown in green, correctly contains heavier elements such as lanthanides while the electroreductor, in red, is responsible for the lighter metals
 as well as changing oxidation states which is not reflected in these streams.
 
 \subsection{Simple Diversion}
@@ -55,12 +55,12 @@ as well as changing oxidation states which is not reflected in these streams.
 
 Figures \ref{fig:current-isotope-comp} and \ref{fig:isotopic-range} are used to demonstrate simple diversion scenarios. In particular, the scenario run for Figure
 \ref{fig:current-isotope-comp} compares the average case with one of increased power draw. Increasing the power draw of the facility affects sub-process currents.
-Separation efficiency of the reductor and winner is improved by increasing the current in the anode resulting in the Material Unaccounted for shown above. Voloxidation stream
-is kept on the plot as a validation only appropriate processes are being affected. 
+Separation efficiency of the reductor and winner is improved by increasing the current in the anode resulting in the material unaccounted for (MUF) shown above. The voloxidation stream
+is kept on the plot validating only appropriate processes are being affected. 
 
 The other diversion scenario explored here is a theoretical maximum diversion scenario in which two scenarios are run: where parameters are set to their maximum and minimum values
 respectively. Although an unrealistic scenario since diversion is easily detected, the scenario shows us the worst case scenario and could be used to inform inspection intervals.
-Figure \ref{fig:isotopic-range} shows that after the 20 months scenario approximately a significant quantity of plutonium is unaccounted for. As such, inspections would need to occur
+Figure \ref{fig:isotopic-range} shows that after a 20 month scenario, approximately a significant quantity of plutonium is unaccounted for. As such, inspections would need to occur
 at a similar interval, depending on the reported capacity.
 
 \section{US Fuel Cycle Transition}
@@ -88,7 +88,7 @@ After testing the capabilities of Pyre in a small scenario, we implement the arc
 	\label {tab:setup}
 \end{table}
 
-Table \ref{tab:setup} shows the setup for a Sodium Fast Reactor transition. In addition to the above information, the scenario is initiated with 200 LWRs with another 200 being deployed
+Table \ref{tab:setup} shows the setup for a sodium fast reactor (SFR) transition. In addition to the above information, the scenario is initiated with 200 LWRs with another 200 being deployed
 in 2015 at the transition period. Two Pyre prototypes are deployed to handle the different fuel types seen in the above scenario. The PRIDE-based facility is configured to reprocess ceramic
 LWR waste while the INL-based facility handles metallic SFR fuel, and is deployed after the transition. 
 
@@ -104,8 +104,8 @@ while appropriate SFR fuel quantities are accumulated.
 \subsection{Pyre Performance}
 
 To verify functionality of the Pyre archetype, rather than the transition scenario itself, we take a look at the fuel production and utilization rather than facility deployment.
-Figures \ref{fig:TRU-util} and \ref{fig:u-util} demonstrate the appropriate reprocessing and fabrication of SFR fuel. Figure \ref{fig:TRU-util} shows around year 2125 the SFR pyroprocessing
-plants begin producing a sustainable amount of fuel. Since all SFRs are breeders in this scenario, we can see that as more reactors are deployed the TRU stock increases exponentially at year 2150. Similarly, the overall utilization of Uranium improves as reprocessing is heavily used.
+Figures \ref{fig:TRU-util} and \ref{fig:u-util} demonstrate the appropriate reprocessing and fabrication of SFR fuel. Figure \ref{fig:TRU-util} shows the SFR pyroprocessing
+plants begin producing a sustainable amount of fuel around year 2125. Since all SFRs are breeders in this scenario, we can see that as more reactors are deployed the TRU stock increases exponentially at year 2150. Similarly, the overall utilization of uranium improves as reprocessing is heavily used.
 
 \begin{figure} [h]
 	\includegraphics[width=\linewidth]{images/transition-TRUutil}
