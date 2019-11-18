@@ -35,11 +35,9 @@ has potential to be obscured by measurement error. These detector uncertainties 
 
 \section{Verification}
 
-\subsection{Nefarious Diversion}
+\paragraph{Operator Diversion} \mbox{} \\
 
-\subsection{Operator Diversion}
-
-To test operator diversion capabilities, we ran the EG01-EG24 transition scenario shown in chapter 3 with inside operators. The scenario described in Table \ref{tab:setup} contains an LWR and SFR configurationg for Pyre. Each prototype siphoned material with different quantities and frequencies to demonstrate its reconfigurability. The LWR Pyre siphoned off 5\% every 10 timesteps while the SFR Pyre siphoned off 1\% excess every other timestep.  Results for this scenario are shown in
+To test operator diversion capabilities, we ran the EG01-EG24 transition scenario shown in chapter 3 with inside operators. The scenario described in Table \ref{tab:setup} contains an LWR and SFR configuration for Pyre. Each prototype siphoned material with different quantities and frequencies to demonstrate its reconfigurability. The LWR Pyre siphoned off 5\% every 10 timesteps while the SFR Pyre siphoned off 1\% excess every other timestep.  Results for this scenario are shown in
 Figure \ref{fig:divertmat}.
 
 \begin{figure}
@@ -177,12 +175,13 @@ to determine the most impactful systems. These values are collected in Table \re
 		\textbf{Group Number} & \textbf{Temp} & \textbf{Pressure} & \textbf{Stir Speed} & \textbf{Current}
 		& \textbf{Flowrate} & \textbf{Time} \\
 		\hline \hline
-		1 & 1959 & years \\ \hline
-		2 & 2215 & years \\ \hline
-		3 & 60 & years \\ 
-		4 & 80 & years \\ \hline
-		5 & 2015 & years \\ \hline
+		1 & 0.036 & 8.589 & 30.284 & 5.684 & 3.136 & 20.030 \\ \hline
+		2 & 0.715 & 13.336 & 33.542 & 7.216 & 5.699 & 33.602 \\ \hline
+		3 & 0.975 & 15.393 & 35.447 & 7.308 & 7.866 & 43.879 \\ 
+		4 & 1.672 & 15.912 & 36.799 & 7.281 & 9.743 & 52.154 \\ \hline
+		5 & 3.328 & 16.047 & 37.848 & 5.202 & 11.398 & 59.080 \\ \hline
 	\end{tabularx}
-	\caption {Comparison of Operational Settings' Impact on Divertable Material.}
+	\caption {Comparison of Operational Settings' Impact on Divertable Material (shown in
+		\% difference).}
 	\label {tab:compare}
 \end{table}
