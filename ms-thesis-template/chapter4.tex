@@ -10,17 +10,18 @@ a cumulative sum detection algorithm and performing sensitivity analysis on key 
 The cumulative sum method (CUSUM) applied to Pyre was chosen to fit the following requirements: function with minimal prior information, have online diversion detection
 capabilities, and fit a modular approach. The CUSUM change detection algorithm relies on developing an expected mean value of a data stream as shown by the following equations \cite{basseville_detection_1993}.
 
-\[ f_{t+1} = max(0, f_t + x_t - \mu - \delta) \]
+\begin{align}
+	f_{t+1} &= max(0, f_t + x_t - \mu - \delta) \\
+	\intertext{Where}
+	x_t &= \mbox{observed data at time t} \nonumber \\
+	\mu &= \mbox{approximated mean of x} \nonumber \\
+	\delta &= \mbox{acceptable change} \nonumber
+\end{align}
 
-Where:
-\[ x_t = observed \hspace{2mm} data \]
-\[ \mu = approximated \hspace{2mm} mean \]
-\[ \delta = acceptable \hspace{2mm} change \]
-
-This general function adds new observed values to the calculated mean. If the value is within region of error, typically 3$\sigma$, change is not reported. 
+This general function adds new observed values to the calculated mean. If the value is within a region of allowable change, typically 3$\sigma$, the change is not reported. 
 We favor this online diversion detection capability in an effort to achieve timely detection goals set by the IAEA \cite{international_atomic_energy_agency_implications_2004}.
 These intermittent inspections only have access to portions of the complete data stream, thus we aim to mimic reality as closely as possible. In addition, we need this
-algorithm to work on a variety of facilities with different sub-processes active, ruling out a nodal approach seen by \cite{Yilmaz_2016}.
+algorithm to work on a variety of facilities with various active sub-processes.
 
 \subsection{Limitations of selected method}
 
@@ -34,8 +35,6 @@ detection becomes trivial. To combat this issue, noise is artificially created w
 has potential to be obscured by measurement error. These detector uncertainties are assumed from common non-destructive and destructive assay practices used by the SEE LANL course \cite{}.
 
 \section{Verification}
-
-\paragraph{Operator Diversion} \mbox{} \\
 
 To test operator diversion capabilities, we ran the EG01-EG24 transition scenario shown in chapter 3 with inside operators. The scenario described in Table \ref{tab:setup} contains an LWR and SFR configuration for Pyre. Each prototype siphoned material with different quantities and frequencies to demonstrate its reconfigurability. The LWR Pyre siphoned off 5\% every 10 timesteps while the SFR Pyre siphoned off 1\% excess every other timestep.  Results for this scenario are shown in
 Figure \ref{fig:divertmat}.
