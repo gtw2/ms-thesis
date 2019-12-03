@@ -1,6 +1,6 @@
 \chapter[Diversion Detection]{Diversion Detection}
 
-The second aspect of this work is identifying potential places for diversion in a generic pyroprocessing facility. We took 2 primary approaches for this work, applying
+The second aspect of this work identifies locations sensitive to diversion in a generic pyroprocessing facility. This work leverages two approaches: applying
 a cumulative sum detection algorithm and performing sensitivity analysis on key facility parameters. 
 \section{Cumulative Sum}
 
@@ -54,7 +54,7 @@ Key parameters were run over a range of values for diversion to verify the arche
 sub-processes for diversion, the electrorefiner and electrowinner. These two processes are responsible for the production of Uranium and U/TRU ingots, therefore sensitivity analysis was run
 on each of their key parameters: Temperature, Current, Flowrate, Pressure, Stirrer Speed, and Reprocessing Time.
 
-\subsection{Temperature}
+\subsection{Electrorefiner Temperature}
 
 The first setting for consideration is the electrorefiner's temperature. As discussed in methodology, the range for this setting is 500 to 1000 $^\circ C$. However, operation
 typically occurs above 750 $^\circ C$. For each setting we observe how much material can be diverted within a month; these values can be seen isotopically in Figure \ref{fig:ref-temp-sa}.
@@ -74,7 +74,7 @@ in diminishing returns.
 	\label{fig:ref-temp-diff}
 \end{figure}
 
-\subsection{Pressure}
+\subsection{Electrorefiner Pressure}
 
 Available in advanced electrorefiners, vacuum pressure can improve separation efficiency as well. Similar to our analysis of temperature, isotopic compositions of
 divertable material can be seen in Figure \ref{fig:ref-press-sa}. Our baseline for the comparison is atmospheric pressure as this will represent facilities lacking this
@@ -92,7 +92,7 @@ functionality.
 	\label{fig:ref-press-diff}
 \end{figure}
 
-\subsection{Stirrer Speed}
+\subsection{Electrorefiner Stirrer Speed}
 
 The central stirrer is another setting particular to advanced refining techniques \cite{lee_advanced_2008}. We are observing this setting as its a rather simple capability to
 add a mixer. Figure \ref{fig:ref-rot-sa} shows the isotopic distribution associated with a
@@ -111,7 +111,7 @@ to the salt. Therefore, in Figure \ref{fig:ref-rot-diff} we use 0 rpm as our bas
 	\label{fig:ref-rot-diff}
 \end{figure}
 
-\subsection{Current}
+\subsection{Electrowinner Current}
 
 The primary setting for the electrowinning sub-process is the current. An important aspect of
 the current's relationship with efficiency is the decrease in separation beginning around 10 A.
@@ -129,7 +129,7 @@ This is seen in Figures \ref{fig:win-cur-sa} and \ref{fig:win-cur-diff} as 10 A 
 	\label{fig:win-cur-diff}
 \end{figure}
 
-\subsection{Flowrate}
+\subsection{Electrowinner Flowrate}
 
 Similar to the central stirrer of the electrorefiner, increasing the flowrate through the electrowinner can aid removal of additional lanthanides and TRU. Flowrates shown are linear rates, with the bounds corresponding to minimum and maximum values tested in experimental facilities. Figures \ref{fig:win-flow-sa} and \ref{fig:win-flow-diff} demonstrate a steady increase in removal rates with increasing flow.
 
@@ -145,7 +145,7 @@ Similar to the central stirrer of the electrorefiner, increasing the flowrate th
 	\label{fig:win-flow-diff}
 \end{figure}
 
-\subsection{Reprocessing Time}
+\subsection{Electrowinner Reprocessing Time}
 
 The final setting we chose to observe was time spent in the electrowinner. We chose this sub-process since it is closely related to the U/TRU product stream. Comparing Figure \ref{fig:win-time-diff} to Figure \ref{fig:win-flow-diff}, we can see that increasing 
 reprocessing time results in more divertable material than the flowrate. 

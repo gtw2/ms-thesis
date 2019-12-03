@@ -6,7 +6,10 @@ before diverted material is further processed. Pyroprocessing is a used nuclear 
 The goal of this research is to identify potential signs of material diversion in a pyroprocessing facility and implement models 
 of these processes into a detailed pyroprocessing facility archetype to the modular, agent-based fuel cycle simulator, \Cyclus \cite{huff_fundamental_2016}. This facility archetype will equip users of the \Cyclus fuel cycle simulator to investigate 
 detection timeliness enabled by measuring signatures and observables in various fuel cycle scenarios.
+
 \section{Motivation}
+
+
 \subsection{Future Fuel Cycles}
 As the world begins to consider cleaner forms of energy in response to climate change, nuclear energy has regained traction. A main
 concern with nuclear power is the pileup of used nuclear fuel (UNF) as a result of the once-through fuel cycle. 
@@ -33,6 +36,12 @@ points and access points into the facility design. Rather than learn from mistak
 into the design.
 
 \section{Background}
+Prior work has been done on modeling high fidelity facilities and pyroprocessing. In the following section we compile recent efforts modeling fuel cycle facilities, particularly with
+\Cyclus. I also breakdown the electrochemical processes of each sub-process in generic pyroprocessing operation. The key elements are voloxidation, electroreduction, electrorefining, and electrowinning. 
+
+\subsection{Facility Modeling}
+Developers at the University of Wisconsin and University of Tennessee Knoxville have created a number of detailed facility models to add to the \Cyclus framework. At Wisconsin, Dr. Meghan McGarry contributed various random number generator (RNG) based archetypes to capture non-deterministic behaviors in \texttt{Enrich} and \texttt{Sink} \cite{mcgarry_mbmore_2017}. The capabilities for these archetypes include variable assays, inspector swipe tests, and Gaussian distribution of material. \texttt{CascadeEnrich} adds further detail to the \texttt{Enrich} archetype by incorporating detailed centrifuge physics and parameters. 
+
 \subsection{Pyroprocessing}
 Pyroprocessing is an electrochemical separation method used primarily for metallic fast reactor fuel.
 This reprocessing technique uses molten salt, whose composition differs depending on the facility.

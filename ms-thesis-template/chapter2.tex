@@ -12,7 +12,7 @@ Isotope tracking is a key aspect of \Cyclus that we will use for signatures and 
 Many fuel cycle simulators have restrictive licenses such as ORION, VISION, or COSI. This restricts
 nuclear fuel cycle simulator use and development in academia, therefore a tool such as \Cyclus fills a necessary gap. The \Cyclus framework relies on
 free libraries and open development that allows continuous contributions from various universities and fields of research. This increased accessibility allows
-more diverse use and expansion of the simulator as seen with codes like CyBORG and Bright-Lite.
+more diverse use and expansion of the simulator as seen with codes like CyBORG and Bright-Lite \cite{skutnik_cyborg:_2016,schneider_integrated_2016}.
 
 \subsection{Reproducibility}
 Cooperation and collaborative development are a major part of open source development. This is maintained through code reviews. These reviews are conducted by peers,
@@ -123,6 +123,9 @@ to determine the most common operational settings such as temperature, pressure,
 \end{table}
 
 \subsection{Material Balance}
+We take a material balance area over each sub-processes using the signatures and observables identified in Table \ref{tab:params}. 
+These balance areas are shown through flowcharts describing operational parameters in green, and signatures and observables in red. 
+
 \paragraph{Voloxidation} \mbox{}\\
 \gls{LWR} fuel must be treated and separated before proceeding with electrolytic processes. Uranium dioxide heated to 
 500$^{\circ}$C is converted to $U_3O_8$ while noble gases, carbon, and tritium are collected to decay in storage. 

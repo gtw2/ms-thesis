@@ -1,25 +1,28 @@
 \chapter{Conclusion}
 
-This thesis was motivated by a lack of medium fidelity pyroprocessing plants in current fuel cycle simulators \cite{borrelli_approaches_2017}. Combined with 
-the need for safeguards by design in next generation nuclear fuel cycle facilities, a pyroprocessing facility with diversion capabilities fills a technological gap.
-Pyre brings more detailed separations processes to nuclear fuel cycle simulators informed by more limited and specific electrochemical models such as SSPM and AMPYRE \cite{maggos_update_2015,cipiti_modeling_2012}.
+This thesis was motivated by a lack of medium fidelity pyroprocessing plant models in current fuel cycle simulators \cite{borrelli_approaches_2017}. Combined with 
+the need for safeguards-by-design in next generation nuclear fuel cycle facilities, a pyroprocessing facility model with diversion capabilities fills these technological gaps in safeguarding future fuel cycles.
+This work designed, implemented, and demonstrated the Pyre software module.
+Pyre brings more detailed separations processes to nuclear fuel cycle simulators informed by more limited and specific electrochemical models such as SSPM and AMPYRE \cite{maggos_update_2015,cipiti_modeling_2012}. The Pyre module resides within the \texttt{cyclus/recycle} repository, responsible for holding a library extension of reprocessing archetypes.
 
-\Cyclus provides a modular interface to expand and test the capabilities of reprocessing and material diversion. We developed Pyre in the C++ \Cyclus environment to leverage this
-modular framework and test the facility in a key pyroprocessing transition-scenario. We ran a full US fuel cycle transitioning from LWRs to SFRs using only Pyre facilities to facilitate
-this transition. We verified Pyre's role in this transition-scenario by observing the simulation's uranium utilization, TRU production, and successful fueling and operation of SFRs to
-meet power demands.
+\Cyclus provides a modular interface to expand and test the capabilities of reprocessing and material diversion. Pyre leverages this
+modular C++ framework and performed well in a full US fuel cycle transition from LWRs to SFRs using only Pyre facilities to facilitate
+this transition. 
+Observing the transition scenario's uranium utilization, TRU production, and successful fueling and operation of SFRs to
+meet power demands verifies Pyre's role in the simulation.
 
-We also used this transition-scenario to test the sensitivity of key operational settings in a diversion scenario. Using Dakota to vary key settings of the electrorefiner and electrowinner, we
-determined the impact of each setting on product efficiency. Processes that improved interfacing between the eutectic salt and metallic waste, such as stirring, flowrate, and reprocessing time, 
-were found to have the most significant impact on separation. 
+We also used this transition scenario to test the sensitivity of key operational settings in a diversion scenario. Using Dakota to vary key settings of the electrorefiner and electrowinner, we
+determined the impact of each setting on product efficiency. Processes that improved interfacing between the eutectic salt and metallic waste, such as electrorefiner stirring, electrowinner flowrate, and electrowinner reprocessing time, 
+were found to most significantly impact separation efficiency. 
 
 \newpage
 
 \section{Future Work}
 
-In continuation of this work, further research into diversion detection algorithms is required. The current CUSUM implementation can only focus on a single data stream per diversion scenario.
-A more complicated method capable of accounting for multiple parameters at once would better inform users of potential diversion. Another aspect to be improved is the fidelity of the
-pyroprocessing system itself. This can be approached in a couple ways, reducing the timestep or comparing with experimental data. 
+This work has laid the groundwork for further research into diversion detection algorithms and sub-facility modeling. The current CUSUM implementation can only focus on a single data stream per diversion scenario.
+A more complex, nuanced method capable of accounting for multiple parameters simultaneously would better inform users of potential diversion. 
+Another aspect to be improved is the fidelity of the pyroprocessing system itself. 
+This can be approached in a couple ways, reducing the timestep or comparing with experimental data. 
 
 Smaller timesteps will provide frequent data allowing more complex diversion scenarios and more detailed change detection algorithms. Rather than diverting for an entire month at a time,
 these scenarios could operate on a per batch basis. Likewise, further experimental data would help synergy between multiple settings at once. In addition to improving model fidelity,
