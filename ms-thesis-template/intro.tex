@@ -36,11 +36,15 @@ points and access points into the facility design. Rather than learn from mistak
 into the design.
 
 \section{Background}
-Prior work has been done on modeling high fidelity facilities and pyroprocessing. In the following section we compile recent efforts modeling fuel cycle facilities, particularly with
+Prior work has been done on modeling high fidelity facilities and pyroprocessing. In the following section we compile recent efforts modeling fuel cycle facilities with
 \Cyclus. I also breakdown the electrochemical processes of each sub-process in generic pyroprocessing operation. The key elements are voloxidation, electroreduction, electrorefining, and electrowinning. 
 
 \subsection{Facility Modeling}
-Developers at the University of Wisconsin and University of Tennessee Knoxville have created a number of detailed facility models to add to the \Cyclus framework. At Wisconsin, Dr. Meghan McGarry contributed various random number generator (RNG) based archetypes to capture non-deterministic behaviors in \texttt{Enrich} and \texttt{Sink} \cite{mcgarry_mbmore_2017}. The capabilities for these archetypes include variable assays, inspector swipe tests, and Gaussian distribution of material. \texttt{CascadeEnrich} adds further detail to the \texttt{Enrich} archetype by incorporating detailed centrifuge physics and parameters. 
+Developers at the University of Wisconsin, University of Tennessee Knoxville, and University of Texas Austin have created a number of detailed facility models to expand the \Cyclus framework. At Wisconsin, Dr. Meghan McGarry contributed various random number generator (RNG) based archetypes to capture non-deterministic behaviors in \texttt{Enrich} and \texttt{Sink} \cite{mcgarry_mbmore_2017}. The capabilities for these archetypes include variable assays, inspector swipe tests, and Gaussian distribution of material. \texttt{CascadeEnrich} adds further detail to the \texttt{Enrich} archetype by incorporating detailed centrifuge physics and parameters. Current work from Wisconsin includes work from graduate student Kathryn Mummah, who is using pathway analysis to identify key diversion paths within \Cyclus simulations \cite{mummah_material_2019}. Her work
+also focuses on the addition of sub-facility modeling to provide detailed pathways for diversion detection.
+
+At the University of Tennessee Knoxville Dr. Steve Skutnik developed CYclus-Based ORiGen (CyBORG) \cite{skutnik_cyborg:_2016}. This module expands the reactor analysis capabilites of \Cyclus by coupling with Origen. The extension adds reactor data libraries that allow users to perform origen
+reactor depletion calculations within \Cyclus. Other higher fidelity models include the Bright-lite package created at the University of Texas Austin by Dr. Erich Schneider and Dr. Anthony Scopatz \cite{schneider_integrated_2016}. This package adds a medium fidelity reactor, fuel fabrication facility, and reprocessing facility modules.
 
 \subsection{Pyroprocessing}
 Pyroprocessing is an electrochemical separation method used primarily for metallic fast reactor fuel.

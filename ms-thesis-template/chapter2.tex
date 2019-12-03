@@ -1,4 +1,10 @@
 \chapter[Methods]{Methods}
+This chapter outlines the modeling choices made when designing a pyroprocessing facility. 
+The framework a model resides in is a key design choice, and we cover why \Cyclus provides
+a productive environment for designing and testing this facility. In the \Cyclus framework we
+design the Pyre archetype as a generic modular facility using material balance areas and identifying key signatures and observables. Leveraging this information, we design a diverter class to integrate within Pyre. This diverter tracks and alters operational parameters to mimic
+the actions of shadow fuel cycles.
+
 \section{Cyclus}
 
 \Cyclus is a modular, agent-based nuclear fuel cycle simulator that models the flow of material through user-defined nuclear fuel cycle scenarios. \Cycamore, the CYClus 
@@ -47,17 +53,16 @@ to as prototypes (an AP1000 for example is a prototype). Furthermore, facilities
 
 \section{Pyre}
 
-As per the goal of this project, Pyre was designed such that multiple potential pyroprocessing facilities can be modeled at medium fidelity. To accomplish this, and improve upon
-the lower fidelity of the separations archetype found in \Cycamore, we inform our separation efficiencies with higher fidelity models including SSPM and AMPYRE \cite{cipiti_modeling_2012,maggos_update_2015}. The below Figure \ref{fig:flowchart} incorporates material balances for each sub-process and highlights some key parameters we
-either use in the input file or look at for diversion.
+This thesis work included original design and implementation of \Cyclus facility archetype, Pyre, which has various capabilities. Pyre was designed such that multiple potential pyroprocessing facilities can be modeled at medium fidelity. To accomplish this, and improve upon
+the lower fidelity of the separations archetype found in \Cycamore, Pyre separation efficiencies is informed by higher fidelity models including SSPM and AMPYRE \cite{cipiti_modeling_2012,maggos_update_2015}. The below Figure \ref{fig:flowchart} incorporates material balances for each sub-process and highlights some key parameters Pyre
+requires the user to provide in the input file or monitor for diversion.
 
 \subsection{Structure of Pyre}
 
-The archetype separates each sub-process to be handled independently, letting the user determine which aspects are necessary for their facility. We took this approach to also
-allow for better handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. 
+The Pyre archetype separates each sub-process (voloxidation, electroreduction, electrorefining, and electrowinning) to be handled independently, letting the user determine which aspects are necessary for their facility. Pyre takes this approach to improve handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. This reduces reprocessing time, as Pyre does not force redundant processes.
+
 \paragraph{Governing Pyre Class} \mbox{}\\
-The archetype separates each sub-process to be handled independently, letting the user determine which aspects are necessary for their facility. Each sub-process is capable
-of handling its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the wastes are recorded. Waste streams are
+The archetype treats each sub-process as optional and independent, letting the user determine which aspects are necessary for their facility. Each sub-process handles its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the streams are recorded. Waste streams are
 used to verify nominal operation before being traded to a storage facility. Product streams are further refined by each sub-process until the fuel fabrication stage.
 The pure uranium stream and U/TRU stream are then offered up for trade with a fuel fabricator.
 
@@ -76,7 +81,7 @@ The pure uranium stream and U/TRU stream are then offered up for trade with a fu
 
 Before constructing a pyroprocessing archetype, appropriate signatures and observables must be determined to set as our input parameters. To identify signatures and observables 
 found in a variety of pyroprocessing plants, we expand upon what was discussed in chapter 1 by looking at experimental data from electrochemical plants. The primary resources are from 
-INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these parameters into two distinct categories: direct and indirect, corresponding to signatures and observables, respectively. If the inspector has direct access to material these are referred to as signatures, whereas, indirect monitoring, such as
+INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these signatures and observables into two distinct categories: direct and indirect, corresponding to signatures and observables, respectively. If the inspector has direct access to material these are referred to as signatures, whereas, indirect monitoring, such as
 power draw or thermal imaging, represent a lower level of access. 
 
 Potentially trackable signatures and observables include truck deliveries and  power draw  \cite{Hou_2016,Yilmaz_2016}. This list is expanded upon in Table \ref{tab:params} to include pyroprocessing parameters. For this work we narrow down the list to more facility specific parameters rather than observables like the parking lot or truck movement. We also use this table
@@ -127,7 +132,7 @@ We take a material balance area over each sub-processes using the signatures and
 These balance areas are shown through flowcharts describing operational parameters in green, and signatures and observables in red. 
 
 \paragraph{Voloxidation} \mbox{}\\
-\gls{LWR} fuel must be treated and separated before proceeding with electrolytic processes. Uranium dioxide heated to 
+\gls{LWR} fuel must be treated and separated before proceeding with electrochemical processes. Uranium dioxide heated to 
 500$^{\circ}$C is converted to $U_3O_8$ while noble gases, carbon, and tritium are collected to decay in storage. 
 Actinides are also converted to their stable oxide forms and a majority are removed \cite{flowsheet_1998,jubin_spent_2009}. 
 Heating uranium dioxide above 800$^{\circ}$C increases voloxidation throughput.
@@ -140,8 +145,7 @@ Cycling oxidants between H$_2$ and air also improves the U$_3$O$_8$ reaction rat
 	\label{fig:volox}
 \end{figure}
 
-\paragraph{Electroreduction} \mbox{}\\
-The oxidant is converted into metallic fuel through electroreduction to be further refined through electrorefining and electrowinning. 
+\paragraph{Electroreduction} \mbox{}\\ 
 Yellowcake, created in voloxidation, enters the cathode, a negatively charged metal basket. 
 A current density between 100 and 500 mA/cm$^2$ is applied to the anode in a molten LiCl salt. 
 The electrolytic reduction process primarily results in diffusion of Cs, Ba and Sr, along with reduction and conversion of Zr into metallic form \cite{choi_electrochemical_2015,flowsheet_1998}.
@@ -171,8 +175,7 @@ particularly depending on instrumentation and containment material choice \cite{
 Iron, for example, limits operating temperature because a eutectic forms at 725$^{\circ}$C \cite{chapman_revision_1984}.
 In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency. 
 Cathode arrangement and anode rotation speed also affect the collection of uranium 
-dendrites \cite{lee_advanced_2008}. A central stirrer mixes uranium dendrites stuck on 
-the vessel, improving separation efficiency and increasing throughput. 
+dendrites \cite{lee_advanced_2008}.
 
 \begin{figure}[h]
 	\centering
@@ -182,7 +185,7 @@ the vessel, improving separation efficiency and increasing throughput.
 \end{figure}
 
 The electrorefining process also produces a fission product waste stream which requires monitoring. 
-The following products are produced and tracked in \gls{PyRe} at this step: Tc, Ag, Pd, Rh, Ru, Mo, and Zr \cite{flowsheet_1998}. 
+The following products are produced and tracked in Pyre at this step: Tc, Ag, Pd, Rh, Ru, Mo, and Zr \cite{flowsheet_1998}. 
 Uranium and \gls{TRU} product streams separated at this stage are sent to fuel fabrication, while the remaining salt is reformed as an oxidant and recirculated.
 Separation efficiencies are taken after recirculation and treated as a once-through cycle. 
 
@@ -204,7 +207,7 @@ Higher porosity corresponds to free ion paths and a higher current. Increased cu
 
 \subsection{Waste Forms}
 
-Waste from pyroprocessing exists in three main waste streams in which IAEA can directly measure their \emph{signatures}. Monitoring signatures require direct access to the waste streams.
+Waste from pyroprocessing plants exists in three main waste streams in which IAEA can directly measure their \emph{signatures}. Monitoring signatures require direct access to the waste streams.
 These techniques vary depending on the waste form. Leading approaches include non-destructive assay, multiplicity counting, and a plutonium to curium ratio measurement \cite{lee_determination_2012,noauthor_non-destructive_nodate}.
 
 \paragraph{Diverter} \mbox{}\\
