@@ -2,7 +2,7 @@
 \section{Simple Verification}
 In this work, several demonstration simulation verified the capabilities implemented in Pyre. \Cyclus archetypes are expected to meet a number of capabilities such as trading, decommissioning, and isotope tracking.
 To demonstrate these functionalities we ran a simple scenario with one source, sink, and Pyre facility. The Pyre facility is run at default values 
-corresponding to an average installation. The source facility provides light water reactor (LWR) SNF with a composition given by Duderstadt. 
+corresponding to an average installation. The source facility provides light water reactor (LWR) SNF with a composition given by Duderstadt \cite{duderstadt_nuclear_1976}. 
 
 \FloatBarrier
 
@@ -18,11 +18,11 @@ corresponding to an average installation. The source facility provides light wat
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=0.65\linewidth]{images/timeseries-waste}
-	\caption{Waste time series of a simple simulation.}
+	\caption{SNF in the Pyre facility for the simplest simulation.}
 	\label{fig:timeseries-waste}
 \end{figure}
 
-The above Figures \ref{fig:timeseries-prod} and \ref{fig:timeseries-waste} track the shipment of material from the pyre facility to the \texttt{sink}.
+The above Figures \ref{fig:timeseries-prod} and \ref{fig:timeseries-waste} track the shipment of the LWR SNF from the Pyre facility to the \texttt{sink}.
 Individual waste streams are identified and verify the functionality of each sub-process in this LWR configuration. Since the scenario was run with
 constant sub-process parameters and a constant number of facilities, the transactions are expected to remain constant and the above figures meet this expectation.
 In addition to demonstrating sub-process capabilities, material transactions with other \Cyclus facilities can also be observed as expected. Material trade is verified by the continual separation of SNF without a buildup of waste or product.
@@ -52,7 +52,8 @@ as well as changing oxidation states which is not reflected in these streams.
 	\label{fig:isotopic-range}
 \end{figure}
 
-Figures \ref{fig:current-isotope-comp} and \ref{fig:isotopic-range} are used to demonstrate simple diversion scenarios. In particular, the scenario run for Figure
+Simple diversion cases are handled through two example scenarios. The first scenario describes a facility that operates at a higher than reported current, leading to increased power draw. The second case imagines a facility diverting as much material as possible by reporting a low efficiency and operating at optimal levels.
+Figures \ref{fig:current-isotope-comp} and \ref{fig:isotopic-range} are used to demonstrate these simple diversion scenarios. In particular, the scenario run for Figure
 \ref{fig:current-isotope-comp} compares a facility of default values with one of increased power draw. Increasing the power draw of the facility affects sub-process currents.
 Separation efficiency of the electroreductor and electrowinner is improved by increasing the current in the anode resulting in the material unaccounted for (MUF) shown above. Despite no change, the voloxidation stream
 remains to confirm only appropriate processes are being affected. 
@@ -103,9 +104,9 @@ while appropriate SFR fuel quantities are accumulated.
 
 \subsection{Pyre Performance}
 
-To verify functionality of the Pyre archetype, rather than the transition scenario itself, we take a look at the fuel production and utilization rather than facility deployment.
+To verify functionality of the Pyre archetype we observe the fuel production and utilization.
 Figures \ref{fig:TRU-util} and \ref{fig:u-util} demonstrate the appropriate reprocessing and fabrication of SFR fuel. Figure \ref{fig:TRU-util} shows the SFR pyroprocessing
-plants begin producing a sustainable amount of fuel around year 2125. Since all SFRs are breeders in this scenario, we can see that as more reactors are deployed the TRU stock increases exponentially at year 2150. Similarly, the overall utilization of uranium improves as reprocessing is heavily used.
+plants begin producing a sustainable amount of fuel around year 2125. Since all SFRs are breeders in this scenario, we can see that as more reactors are deployed the TRU stock increases exponentially at year 2150. Similarly, the overall utilization of uranium improves as reprocessing is heavily used. Improved uranium utilization corresponds to the closing of the nuclear fuel cycle. The demand for uranium mining and milling diminishes as the SFR population grows causing an increase in uranium effectiveness. This is further exemplified in Figure \ref{fig:TRU-util} which illuminates the shift from enriched uranium based fuel to a TRU mix.
 
 \begin{figure} [h]
 	\includegraphics[width=\linewidth]{images/transition-TRUutil}

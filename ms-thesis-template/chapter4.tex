@@ -4,9 +4,8 @@ The second aspect of this work identifies locations sensitive to diversion in a 
 a cumulative sum detection algorithm and performing sensitivity analysis on key facility parameters. 
 \section{Cumulative Sum}
 
+
 \subsection{Requirements of Diversion Detection}
-
-
 The cumulative sum method (CUSUM) applied to Pyre was chosen to fit the following requirements: function with minimal prior information, have online diversion detection
 capabilities, and fit a modular approach. The CUSUM change detection algorithm calculates expected mean value of an observed data stream as shown by the following equations \cite{basseville_detection_1993}.
 
@@ -36,7 +35,7 @@ has potential to be obscured by measurement error. These detector uncertainties 
 
 \section{Verification}
 
-To test operator diversion capabilities, we ran the EG01-EG24 transition scenario shown in chapter 3 with inside operators. The scenario described in Table \ref{tab:setup} contains an LWR and SFR configuration for Pyre. Each prototype siphoned material with different quantities and frequencies to demonstrate its reconfigurability. The pyroprocessing facility that exclusively accepts LWR fuel siphoned off 5\% every 10 timesteps while the facility that only accepts SFR fuel siphoned off 1\% excess every other timestep.  Results for this scenario are shown in Figure \ref{fig:divertmat}.
+To test operator diversion capabilities, we ran the EG01-EG24 transition scenario shown in chapter 3 with inside operators. The scenario described in Table \ref{tab:setup} contains an LWR and SFR configuration for Pyre. Each prototype siphoned material with different quantities and frequencies to demonstrate its reconfigurability. The pyroprocessing facility that exclusively accepts LWR fuel siphoned off 5\% every 10 timesteps while the facility that only accepts SFR fuel siphoned off 1\% excess every other timestep.  Results for this scenario are shown in Figure \ref{fig:divertmat}. This plot verifies the customization of the diverter class, demonstrating multiple configurations within the same simulation. This capability is integral in capturing diversion in complicated shadow fuel cycles containing multiple pyroprocessing prototypes.
 
 \begin{figure}
 	\centering
@@ -94,7 +93,7 @@ While temperature is a key aspect to the electrorefiner, Figure \ref{fig:ref-tem
 
 Available in advanced electrorefiners, lower vacuum pressure can improve separation efficiency as well. Similar to our analysis of temperature, isotopic compositions of
 divertable material can be seen in Figure \ref{fig:ref-press-sa}. Our baseline for the comparison is atmospheric pressure as this will represent facilities lacking this
-functionality. 
+functionality. Figure \ref{fig:ref-press-diff} compares the five other samples to atmospheric pressure. This further illuminates the plateau separation efficiency experiences in relation to pressures lower than 364 mTorr.
 
 \begin{figure}
 	\includegraphics[width=\linewidth]{images/pressure-sa-comp}
@@ -107,6 +106,8 @@ functionality.
 	\caption{Isotopic composition of the Diverted material stream at various electrorefiner pressures.}
 	\label{fig:ref-press-diff}
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Electrorefiner Stirrer Speed}
 
@@ -125,6 +126,8 @@ to the salt. Therefore, in Figure \ref{fig:ref-rot-diff} this work took 0 rpm as
 	\caption{Isotopic composition of the diverted material stream at various central stirrer speeds.}
 	\label{fig:ref-rot-diff}
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Electrowinner Current}
 
@@ -176,12 +179,14 @@ reprocessing time results in more divertable material.
 	\label{fig:win-time-diff}
 \end{figure}
 
+\FloatBarrier
+
 \section{Parameter Comparison}
 
 The material increase due to the previous six operational settings was normalized against their respective baseline
 to determine the most impactful process parameters. Table \ref{tab:compare} summarizes these values.
 
-\begin{table}[h]
+\begin{table}[h!]
 	\centering
 	\begin{tabularx}{0.9\linewidth}{lcccccc}
 		\hline

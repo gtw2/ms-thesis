@@ -22,7 +22,7 @@ more diverse use and expansion of the simulator as seen with codes like CyBORG a
 
 \subsection{Reproducibility}
 Cooperation and collaborative development are a major part of open source development. This is maintained through code reviews. These reviews are conducted by peers,
-and are used to check code style, documentation, and functionality. As such, any addition to open source code in particular should be well tested.
+and are used to check code style, documentation, and functionality. As such, any addition to open source code in particular should be well tested for bug detection, verification, and confidence in results.
 Thorough testing allows concurrent or future developers to maintain and expand the project while ensuring all capabilities are maintained. Following these guidelines, we
 implement a number of tests verifying trade capability and sub-process physics to ensure reproducibility. The details of these verifications will be explained further in Chapter 3.
 
@@ -128,6 +128,7 @@ to determine the most common operational settings such as temperature, pressure,
 \end{table}
 
 \subsection{Material Balance}
+In order to improve material accountancy, points where material is transfered need to be monitored through material balance areas.
 We take a material balance area over each sub-processes using the signatures and observables identified in Table \ref{tab:params}. 
 These balance areas are shown through flowcharts describing operational parameters in green, and signatures and observables in red. 
 
@@ -145,6 +146,14 @@ Cycling oxidants between H$_2$ and air also improves the U$_3$O$_8$ reaction rat
 	\label{fig:volox}
 \end{figure}
 
+Figure \ref{fig:volox} shows the material balance of the voloxidation process which can be translated to an equation for material unaccounted for (MUF):
+
+\begin{align}
+\sigma_{MUF} = UO_2 - Gases - Ac - Tritium - U_3O_8
+\end{align}
+
+Red boxes correspond to losses while the only gain is chopped $UO_2$ as described previously. Each of these variables can be detected through signatures and observables, monitoring temperature and waste for example can inform efficiency.
+
 \paragraph{Electroreduction} \mbox{}\\ 
 Yellowcake, created in voloxidation, enters the cathode, a negatively charged metal basket. 
 A current density between 100 and 500 mA/cm$^2$ is applied to the anode in a molten LiCl salt. 
@@ -161,6 +170,14 @@ of lithium oxide can be tracked as an observable to match records.
 	\label{fig:reduction}
 \end{figure}
 
+Translating Figure \ref{fig:reduction} to an equation for MUF yields the following:
+
+\begin{align}
+\sigma_{MUF} &= U_3O_8 - X_{^{90}Sr} - X_{^{137}Cs} - X_{U+LiCl} + X_{LiCl}
+\end{align}
+
+The electroreductor primarily prepares fuel for use in the electrorefiner, therefore few materials are removed. Notable signatures include the $^{90}Sr$ and $^{137}Cs$ and power draw associated with changing current.
+
 \paragraph{Electrorefiner} \mbox{}\\
 Once in metallic form, electrorefining electrochemically separates uranium and TRUs for fuel fabrication.
 The uranium and salt mixture from reduction is fed into an anode basket suspended in a graphite cathode. 
@@ -169,13 +186,37 @@ Uranium dissolves at the anode to recombine at the cathode as metallic uranium.
 Waste TRUs and lanthanides are in a soluble chloride form  while fission products and cladding remain in the anode
 basket. Finally, actinides and fission products are removed from the cladding electrochemically \cite{lee_korean_2011}.
 
-Lee et al. \cite{lee_advanced_2008} show decreasing system pressure improves removal efficiency. 
+Lee et al. \cite{lee_advanced_2008} show decreasing system pressure improves removal efficiency experimentally.
 Temperature, however, exhibits the opposite effect: as temperature decreases so does salt removal. This comes into effect 
 particularly depending on instrumentation and containment material choice \cite{lee_advanced_2008}. 
 Iron, for example, limits operating temperature because a eutectic forms at 725$^{\circ}$C \cite{chapman_revision_1984}.
-In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency. 
+In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency.
+
+\begin{align}
+\epsilon &= aT^3 + bT^2 - M + c \\
+M &= \frac{\alpha P_{eq}}{\sqrt{2\pi mRT}} \\
+\intertext{Where}
+\epsilon &= \mbox{efficiency} \nonumber \\
+M &= \mbox{evaporation rate} \nonumber \\
+\alpha &= \mbox{evaporation coefficient} \nonumber \\
+P_{eq} &= \mbox{equilibrium pressure} \nonumber \\
+m &= \mbox{molecular weight} \nonumber \\
+T &= \mbox{temperature} \nonumber \\
+a,b,c &= \mbox{coefficients derived from experimentation} \nonumber
+\end{align}
+
 Cathode arrangement and anode rotation speed also affect the collection of uranium 
 dendrites \cite{lee_advanced_2008}.
+
+\begin{align}
+\epsilon &= 0.032 \omega + 0.72		\mbox{\hspace{40mm}}	\omega < 1 \\
+\epsilon &= 0.03 log(\omega) + 0.84		\mbox{\hspace{30mm}}	1 < \omega < 100 \\
+\intertext{Where}
+\epsilon &= \mbox{efficiency} \nonumber \\
+\omega &= \mbox{rotation speed} \nonumber
+\end{align}
+
+The above is combined into the flowchart seen in Figure \ref{fig:refining} where key inputs are highlighted in green and wastes or signatures appear in red. 
 
 \begin{figure}[h]
 	\centering
@@ -189,6 +230,14 @@ The following products are produced and tracked in Pyre at this step: Tc, Ag, Pd
 Uranium and \gls{TRU} product streams separated at this stage are sent to fuel fabrication, while the remaining salt is reformed as an oxidant and recirculated.
 Separation efficiencies are taken after recirculation and treated as a once-through cycle. 
 
+\begin{align}
+\sigma_{MUF} &= X_{U in} + X_{salt} - X_{LiCl-KCl} - X_{ws} - FP - X_{U out} \\
+\intertext{Where}
+X_{ws} &= \mbox{waste salt quantity} \nonumber
+\end{align}
+
+The MUF equation for the electrorefiner is generalized by equation 2.7 to account for the numerous fission products and actinides removed in this stage. This process contains the first product stream shown in the MUF, and signatures and observables increase accordingly. The increased complexity of the electrorefiner leads to additional parameters and material streams to monitor. Pyre leverages these additional signatures using the equations discussed above to monitor the behavior of the electrorefiner.
+
 \paragraph{Electrowinner} \mbox{}\\
 Molten salt containing \glspl{TRU} from electrorefining is separated through electrowinning. This process separates trace uranium quantities, lanthanides and fission products. 
 At 500$^{\circ}$C there is approximately 99 wt\% reduction in actinides and lanthanides \cite{flowsheet_1998}. 
@@ -197,6 +246,17 @@ efficiency \cite{koyama_development_2012}. A shroud surrounds the anode to provi
 prevent Cl$_2$ from corroding the anode \cite{kim_development_2013,choi_electrochemical_2015}. Optimum operating current 
 depends on material choice for the anode shroud since a nonporous shroud limits ion pathways to the anode contact points.
 Higher porosity corresponds to free ion paths and a higher current. Increased currents reduce the separation time for electroreduction and electrowinning \cite{choi_electrochemical_2015}.
+The following equation describes the effect of current on material separation, however $\eta_s$ is gathered experimentally \cite{ahluwalia_uranium_2004}:
+
+\begin{align}
+\frac{dm}{dt} &= (1-\eta_s)I\frac{M}{3F} \\
+\intertext{Where}
+m &= \mbox{mass} \nonumber \\
+\eta_s &= \mbox{sticking coefficient} \nonumber \\
+I &= \mbox{current} \nonumber \\
+M &= \mbox{molecular weight} \nonumber \\
+F &= \mbox{Faraday's constant} \nonumber
+\end{align}
 
 \begin{figure}[h] 
 	\centering
@@ -205,24 +265,39 @@ Higher porosity corresponds to free ion paths and a higher current. Increased cu
 	\label{fig:winning}
 \end{figure}
 
+The above information and flowchart correspond to the following MUF equation.
+
+\begin{align}
+\sigma_{MUF} &= X_{LiCl-KCl + U/TRU} - X_{FP/salt/U} - X_{Ln} - X_{U/TRU}
+\end{align}
+
+Waste from the electrorefiner is sent to the electrowinner in the form of LiCl-KCl+U/TRU where the U/TRU stream is removed for fuel fabrication. Additionally, lanthanides and actinides are removed before recycling the salt to the electrorefiner for further reprocessing. This process results in the following signatures and observables for tracking in Pyre: current, reprocessing time, and decay of FP. 
+
 \subsection{Waste Forms}
 
 Waste from pyroprocessing plants exists in three main waste streams in which IAEA can directly measure their \emph{signatures}. Monitoring signatures require direct access to the waste streams.
 These techniques vary depending on the waste form. Leading approaches include non-destructive assay, multiplicity counting, and a plutonium to curium ratio measurement \cite{lee_determination_2012,noauthor_non-destructive_nodate}.
 
 \paragraph{Diverter} \mbox{}\\
-Figure \ref{fig:diverttype} shows the difference between nefarious diversion, in gray, and operator diversion, in orange. The gray line shows normal operation where diversion occurs
-through the shipment, and can be detected by a discrepancy in shipment records. The more difficult case to handle, shown in orange, imagines an inside man altering operational settings
-to increase product over reported quantities. The scenario we are concerned with is operator diversion; we wish to determine the most important points in the plant to monitor for potential
+Figures \ref{fig:nef-divert} and \ref{fig:op-divert} shows the difference between nefarious diversion and operator diversion. In Figure \ref{fig:nef-divert} nefarious diversion occurs
+through the shipment, and can be detected by a discrepancy in shipment records. These diversions do not require access to the facility, only that a bad actor can siphon from or steal a shipment. The more difficult case to handle, shown in Figure \ref{fig:op-divert}, imagines an inside man altering operational settings
+to increase product over reported quantities. Normal operation can be seen in gray and can be difficult to detect diverted material using shipment methods as with nefarious diversion. The scenario we are concerned with is operator diversion; we wish to determine the most important points in the plant to monitor for potential
 diversion. A side effect of this goal is that we must be able to detect diversion by changing key operational settings.
 
 \FloatBarrier
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/westphal-diversion}
-	\caption{A flowchart demonstrating the main forms of material diversion.}
-	\label{fig:diverttype}
+	\includegraphics[width=0.8\linewidth]{images/nef-diversion}
+	\caption{A flowchart demonstrating the process of nefarious diversion.}
+	\label{fig:nef-divert}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/op-diversion}
+	\caption{A flowchart demonstrating the process of operator diversion.}
+	\label{fig:op-divert}
 \end{figure}
 
 \Cyclus does not natively handle diversion from inside facilities as required for the goals for Pyre. We implemented a higher fidelity diversion model through the
