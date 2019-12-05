@@ -11,7 +11,8 @@ capabilities, and fit a modular approach. The CUSUM change detection algorithm c
 
 \begin{align}
 	f_{t+1} &= max(0, f_t + x_t - \mu - \delta) \\
-	\intertext{Where}
+	\intertext{where}
+	f_t &= \mbox{cumulative sum at time t} \nonumber \\
 	x_t &= \mbox{observed data at time t} \nonumber \\
 	\mu &= \mbox{approximated mean of x} \nonumber \\
 	\delta &= \mbox{acceptable change} \nonumber
@@ -31,7 +32,7 @@ sub-processes or settings.
 
 CUSUM relies on a variable mean and noise to obscure possible change points. When a simulator knows the exact value at each time step, without human reporting or measurement error, change 
 detection becomes trivial. To best represent the uncertainty inherent in material accountancy measurement, noise is artificially created when the CUSUM class reads data. This way \Cyclus retains its constant operating value while the change point
-has potential to be obscured by measurement error. These detector uncertainties are assumed from common non-destructive and destructive assay practices used by the SEE LANL safeguards training course \cite{root_see_2019}.
+has potential to be obscured by measurement error. These detector uncertainties are assumed from common non-destructive and destructive assay practices used by the Safeguards Technology Training Program at LANL \cite{root_see_2019}.
 
 \section{Verification}
 
@@ -63,7 +64,7 @@ Key parameters were sampled over a range of values for diversion to verify the a
 		Electrowinner Flow Rate & 2 & 4.5 & cm/s \\ \hline
 		Electrowinner Process Time & 1 & 4 & hours \\ \hline
 	\end{tabularx}
-	\caption {Range of Each Sensitivity Analysis Parameter Sample.}
+	\caption {Range of each sensitivity analysis parameter sample.}
 	\label {tab:range}
 \end{table}
 
@@ -201,7 +202,7 @@ to determine the most impactful process parameters. Table \ref{tab:compare} summ
 		5 & 3.328 & 16.047 & 37.848 & 5.202 & 11.398 & 59.080 \\ \hline
 	\end{tabularx}
 	\caption {Comparison of operational settings' impact on divertable material (shown in
-		\% difference compared to baseline values). Where ER and EW represent electrorefiner and electrowinner respectively.}
+		\% difference compared to baseline values). Where ER and EW represent electrorefiner and electrowinner, respectively.}
 	\label {tab:compare}
 \end{table}
 
@@ -212,6 +213,5 @@ has such a significant impact due to increasing the rate of separation, and impr
 efficiency. Comparing the stirrer and pressure separation efficiency illuminates the stirrer's significance. Reducing pressure to 100 mTorr results in a 16\% increase in material while a stirrer at 20 rpm nearly doubles that at 30.284\% increase.
 Separation efficiency due to changes in current plateaus because the process is limited by reaction rate. Increasing electrowinner current does not affect opportunity to react as flowrate and time can be seen to do. 
 A trend noticed in these settings is those which allow more interaction between the salt and waste see a more significant increase in product. 
-
 While the rest also result in
 improved efficiency, they require a larger change in operation to meet the same increased separation.

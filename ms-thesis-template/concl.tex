@@ -1,7 +1,7 @@
 \chapter{Conclusion}
 
-This thesis was motivated by a lack of medium fidelity pyroprocessing plant models in current fuel cycle simulators \cite{borrelli_approaches_2017}. Combined with 
-the need for safeguards-by-design in next generation nuclear fuel cycle facilities, a pyroprocessing facility model with diversion capabilities fills these technological gaps in safeguarding future fuel cycles.
+This thesis was motivated by a lack of medium fidelity pyroprocessing plant models in current fuel cycle simulators \cite{borrelli_approaches_2017}. Medium fidelity models provide detailed physics to flexible fuel cycle simulations requiring multiple configurations.  Combined with 
+the need for safeguards-by-design in next-generation nuclear fuel cycle facilities, a pyroprocessing facility model with diversion capabilities fills these technological gaps in safeguarding future fuel cycles.
 This work designed, implemented, and demonstrated the Pyre software module.
 Pyre brings more detailed separations processes to nuclear fuel cycle simulators informed by more limited and specific electrochemical models such as SSPM and AMPYRE \cite{maggos_update_2015,cipiti_modeling_2012}. The Pyre module resides within the \texttt{cyclus/recycle} repository, responsible for holding a library extension of reprocessing archetypes.
 
@@ -15,9 +15,7 @@ We also used this transition scenario to test the sensitivity of key operational
 determined the impact of each setting on product efficiency. Processes that improved interfacing between the eutectic salt and metallic waste, such as electrorefiner stirring, electrowinner flowrate, and electrowinner reprocessing time, 
 were found to most significantly impact separation efficiency. 
 
-\newpage
-
-\section{Future Work}
+\paragraph{Future Work} \mbox{} \\
 
 This work has laid the groundwork for further research into diversion detection algorithms and sub-facility modeling. The current CUSUM implementation can only focus on a single data stream per diversion scenario.
 A more complex, nuanced method capable of accounting for multiple parameters simultaneously would better inform users of potential diversion. 

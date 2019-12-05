@@ -15,9 +15,9 @@ Isotope tracking is a key aspect of \Cyclus that we will use for signatures and 
 
 \subsection{Open Source}
 
-Many fuel cycle simulators have restrictive licenses such as ORION, VISION, or COSI. This restricts
+Many fuel cycle simulators have restrictive licenses such as ORION, VISION, and COSI \cite{yacout_vision_2006,zimmerman_orion_2007,coquelet-pascal_cosi6:_2015}. This restricts
 nuclear fuel cycle simulator use and development in academia, therefore a tool such as \Cyclus fills a necessary gap. The \Cyclus framework relies on
-free libraries and open development that allows continuous contributions from various universities and fields of research. This increased accessibility allows
+free and open source libraries and an open development process that allows continuous contributions from various universities and fields of research. This increased accessibility allows
 more diverse use and expansion of the simulator as seen with codes like CyBORG and Bright-Lite \cite{skutnik_cyborg:_2016,schneider_integrated_2016}.
 
 \subsection{Reproducibility}
@@ -53,18 +53,18 @@ to as prototypes (an AP1000 for example is a prototype). Furthermore, facilities
 
 \section{Pyre}
 
-This thesis work included original design and implementation of \Cyclus facility archetype, Pyre, which has various capabilities. Pyre was designed such that multiple potential pyroprocessing facilities can be modeled at medium fidelity. To accomplish this, and improve upon
-the lower fidelity of the separations archetype found in \Cycamore, Pyre separation efficiencies is informed by higher fidelity models including SSPM and AMPYRE \cite{cipiti_modeling_2012,maggos_update_2015}. The below Figure \ref{fig:flowchart} incorporates material balances for each sub-process and highlights some key parameters Pyre
+This thesis work included original design and implementation of \Cyclus facility archetype, Pyre, which a myriad of capabilities. Pyre was designed such that multiple potential pyroprocessing facilities can be modeled at medium fidelity. To accomplish this, and improve upon
+the lower fidelity of the separations archetype found in \Cycamore, Pyre separation efficiencies are informed by higher fidelity models including SSPM and AMPYRE \cite{cipiti_modeling_2012,maggos_update_2015}. Figure \ref{fig:flowchart} incorporates material balances for each sub-process and highlights some key parameters Pyre
 requires the user to provide in the input file or monitor for diversion.
 
 \subsection{Structure of Pyre}
 
-The Pyre archetype separates each sub-process (voloxidation, electroreduction, electrorefining, and electrowinning) to be handled independently, letting the user determine which aspects are necessary for their facility. Pyre takes this approach to improve handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. This reduces reprocessing time, as Pyre does not force redundant processes.
+The Pyre archetype handles each sub-process (voloxidation, electroreduction, electrorefining, and electrowinning) independently, letting the user determine which aspects are necessary for their facility. Pyre takes this approach to improve handling of various waste streams. Ceramic waste must go through the electroreductor, whereas metallic fuel can go straight into the electrorefiner \cite{michael_f._simpson_developments_2012}. This reduces reprocessing time, as Pyre does not force redundant processes.
 
 \paragraph{Governing Pyre Class} \mbox{}\\
 The archetype treats each sub-process as optional and independent, letting the user determine which aspects are necessary for their facility. Each sub-process handles its own diversion and material tracking. The streams produced from these processes are sent further through the facility, and the streams are recorded. Waste streams are
 used to verify nominal operation before being traded to a storage facility. Product streams are further refined by each sub-process until the fuel fabrication stage.
-The pure uranium stream and U/TRU stream are then offered up for trade with a fuel fabricator.
+The pure uranium stream and U/TRU stream are then offered up for trade elsewhere in the broader \Cyclus simulation.
 
 \FloatBarrier
 
@@ -79,8 +79,8 @@ The pure uranium stream and U/TRU stream are then offered up for trade with a fu
 
 \section{Signatures and Observables}
 
-Before constructing a pyroprocessing archetype, appropriate signatures and observables must be determined to set as our input parameters. To identify signatures and observables 
-found in a variety of pyroprocessing plants, we expand upon what was discussed in chapter 1 by looking at experimental data from electrochemical plants. The primary resources are from 
+Before constructing a pyroprocessing archetype, appropriate signatures and observables were determined and were incorporated as facility configuration parameters. To identify signatures and observables 
+found in a variety of pyroprocessing plants, we expand upon what was discussed in chapter 1 by reviewing experimental data from electrochemical plants. The primary resources are from 
 INL, KAERI, and ANL \cite{lee_korean_2011,flowsheet_1998,michael_f._simpson_developments_2012,li_electrorefining_2005}. We break up these signatures and observables into two distinct categories: direct and indirect, corresponding to signatures and observables, respectively. If the inspector has direct access to material these are referred to as signatures, whereas, indirect monitoring, such as
 power draw or thermal imaging, represent a lower level of access. 
 
@@ -119,8 +119,7 @@ to determine the most common operational settings such as temperature, pressure,
 		&  & $^{135}$Cs & \\
 		&  & $^{137}$Cs & \\ \hline
 		Facility & Throughput & Shipments & \\
-		& Batch Size & Parking Lot & \\
-		& & Thermal Image & \\
+		& Batch Size & Thermal Image & \\
 		\hline
 	\end{tabularx}
 	\caption {Archetype inputs and signatures \& observables at each sub-process.}
@@ -130,7 +129,7 @@ to determine the most common operational settings such as temperature, pressure,
 \subsection{Material Balance}
 In order to improve material accountancy, points where material is transfered need to be monitored through material balance areas.
 We take a material balance area over each sub-processes using the signatures and observables identified in Table \ref{tab:params}. 
-These balance areas are shown through flowcharts describing operational parameters in green, and signatures and observables in red. 
+These balance areas are shown through Figures \ref{fig:volox} through \ref{fig:winning} describing operational parameters in green, and signatures and observables in red. 
 
 \paragraph{Voloxidation} \mbox{}\\
 \gls{LWR} fuel must be treated and separated before proceeding with electrochemical processes. Uranium dioxide heated to 
@@ -149,7 +148,7 @@ Cycling oxidants between H$_2$ and air also improves the U$_3$O$_8$ reaction rat
 Figure \ref{fig:volox} shows the material balance of the voloxidation process which can be translated to an equation for material unaccounted for (MUF):
 
 \begin{align}
-\sigma_{MUF} = UO_2 - Gases - Ac - Tritium - U_3O_8
+\sigma_{MUF} = UO_2 - m_{gases} - m_{Ac} - m_{^3H} - U_3O_8
 \end{align}
 
 Red boxes correspond to losses while the only gain is chopped $UO_2$ as described previously. Each of these variables can be detected through signatures and observables, monitoring temperature and waste for example can inform efficiency.
@@ -173,7 +172,7 @@ of lithium oxide can be tracked as an observable to match records.
 Translating Figure \ref{fig:reduction} to an equation for MUF yields the following:
 
 \begin{align}
-\sigma_{MUF} &= U_3O_8 - X_{^{90}Sr} - X_{^{137}Cs} - X_{U+LiCl} + X_{LiCl}
+\sigma_{MUF} &= U_3O_8 - m_{^{90}Sr} - m_{^{137}Cs} - m_{U+LiCl} + m_{LiCl}
 \end{align}
 
 The electroreductor primarily prepares fuel for use in the electrorefiner, therefore few materials are removed. Notable signatures include the $^{90}Sr$ and $^{137}Cs$ and power draw associated with changing current.
@@ -190,30 +189,29 @@ Lee et al. \cite{lee_advanced_2008} show decreasing system pressure improves rem
 Temperature, however, exhibits the opposite effect: as temperature decreases so does salt removal. This comes into effect 
 particularly depending on instrumentation and containment material choice \cite{lee_advanced_2008}. 
 Iron, for example, limits operating temperature because a eutectic forms at 725$^{\circ}$C \cite{chapman_revision_1984}.
-In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency.
+In facilities where iron equipment is present, temperatures are limited to 700$^{\circ}$C, hindering efficiency, $\epsilon$, expressed thus:
 
 \begin{align}
-\epsilon &= aT^3 + bT^2 - M + c \\
-M &= \frac{\alpha P_{eq}}{\sqrt{2\pi mRT}} \\
-\intertext{Where}
-\epsilon &= \mbox{efficiency} \nonumber \\
-M &= \mbox{evaporation rate} \nonumber \\
+\epsilon &= aT^3 + bT^2 - V + c \\
+V &= \frac{\alpha P_{eq}}{\sqrt{2\pi mRT}} \\
+\intertext{where}
+\epsilon &= \mbox{separation efficiency} [\%] \nonumber \\
+V &= \mbox{evaporation rate} \nonumber \\
 \alpha &= \mbox{evaporation coefficient} \nonumber \\
-P_{eq} &= \mbox{equilibrium pressure} \nonumber \\
-m &= \mbox{molecular weight} \nonumber \\
-T &= \mbox{temperature} \nonumber \\
+P_{eq} &= \mbox{equilibrium vapor pressure} [mTorr] \nonumber \\
+m &= \mbox{molecular weight} [g] \nonumber \\
+T &= \mbox{temperature of salt} [K] \nonumber \\
 a,b,c &= \mbox{coefficients derived from experimentation} \nonumber
 \end{align}
 
 Cathode arrangement and anode rotation speed also affect the collection of uranium 
-dendrites \cite{lee_advanced_2008}.
+dendrites \cite{lee_advanced_2008}. As rotation speed increases, efficiency increases linearly until 1 rpm. Above 1 rpm, efficiency follows a logarithmic relationship shown as thus:
 
 \begin{align}
 \epsilon &= 0.032 \omega + 0.72		\mbox{\hspace{40mm}}	\omega < 1 \\
 \epsilon &= 0.03 log(\omega) + 0.84		\mbox{\hspace{30mm}}	1 < \omega < 100 \\
-\intertext{Where}
-\epsilon &= \mbox{efficiency} \nonumber \\
-\omega &= \mbox{rotation speed} \nonumber
+\intertext{where}
+\omega &= \mbox{rotation speed} [rpm] \nonumber
 \end{align}
 
 The above is combined into the flowchart seen in Figure \ref{fig:refining} where key inputs are highlighted in green and wastes or signatures appear in red. 
@@ -228,12 +226,16 @@ The above is combined into the flowchart seen in Figure \ref{fig:refining} where
 The electrorefining process also produces a fission product waste stream which requires monitoring. 
 The following products are produced and tracked in Pyre at this step: Tc, Ag, Pd, Rh, Ru, Mo, and Zr \cite{flowsheet_1998}. 
 Uranium and \gls{TRU} product streams separated at this stage are sent to fuel fabrication, while the remaining salt is reformed as an oxidant and recirculated.
-Separation efficiencies are taken after recirculation and treated as a once-through cycle. 
+Separation efficiencies are taken after recirculation and treated as a once-through cycle. These relationships are demonstrated as follows:
 
 \begin{align}
-\sigma_{MUF} &= X_{U in} + X_{salt} - X_{LiCl-KCl} - X_{ws} - FP - X_{U out} \\
+\sigma_{MUF} &= m_{U in} + m_{salt} - m_{LiCl-KCl} - m_{ws} - FP - m_{U out} \\
 \intertext{Where}
-X_{ws} &= \mbox{waste salt quantity} \nonumber
+m_{U in} &= \mbox{U input from electroreductor} [kg] \nonumber \\
+m_{salt} &= \mbox{salt input from salt distilation} [kg] \nonumber \\
+m_{LiCl-KCl} &= \mbox{salt returned to electroreductor} [kg] \nonumber \\
+m_{ws} &= \mbox{waste salt quantity} [kg] \nonumber \\
+m_{U out} &= \mbox{pure U output stream} [kg] \nonumber
 \end{align}
 
 The MUF equation for the electrorefiner is generalized by equation 2.7 to account for the numerous fission products and actinides removed in this stage. This process contains the first product stream shown in the MUF, and signatures and observables increase accordingly. The increased complexity of the electrorefiner leads to additional parameters and material streams to monitor. Pyre leverages these additional signatures using the equations discussed above to monitor the behavior of the electrorefiner.
@@ -246,16 +248,16 @@ efficiency \cite{koyama_development_2012}. A shroud surrounds the anode to provi
 prevent Cl$_2$ from corroding the anode \cite{kim_development_2013,choi_electrochemical_2015}. Optimum operating current 
 depends on material choice for the anode shroud since a nonporous shroud limits ion pathways to the anode contact points.
 Higher porosity corresponds to free ion paths and a higher current. Increased currents reduce the separation time for electroreduction and electrowinning \cite{choi_electrochemical_2015}.
-The following equation describes the effect of current on material separation, however $\eta_s$ is gathered experimentally \cite{ahluwalia_uranium_2004}:
+The following equation describes the effect of current on material separation, however $\eta_s$ (denoting a ratio of material stuck to the anode) is gathered experimentally \cite{ahluwalia_uranium_2004}:
 
 \begin{align}
-\frac{dm}{dt} &= (1-\eta_s)I\frac{M}{3F} \\
-\intertext{Where}
-m &= \mbox{mass} \nonumber \\
-\eta_s &= \mbox{sticking coefficient} \nonumber \\
-I &= \mbox{current} \nonumber \\
-M &= \mbox{molecular weight} \nonumber \\
-F &= \mbox{Faraday's constant} \nonumber
+\frac{dm_X}{dt} &= (1-\eta_s)I\frac{M_X}{3F} \\
+\intertext{where}
+m &= \mbox{mass of isotope X} [kg] \nonumber \\
+\eta_s &= \mbox{sticking coefficient} [n/a] \nonumber \\
+I &= \mbox{current} [A] \nonumber \\
+M &= \mbox{molecular weight of isotope X} [kg] \nonumber \\
+F &= \mbox{Faraday's constant} [C/mol] \nonumber
 \end{align}
 
 \begin{figure}[h] 

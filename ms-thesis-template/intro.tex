@@ -16,8 +16,7 @@ concern with nuclear power is the pileup of used nuclear fuel (UNF) as a result 
 One suggested solution is converting to a closed fuel cycle \cite{wigeland_nuclear_2014}. There are many approaches to transitioning from our current
 fuel cycle to a new or closed cycle. Of these future fuel cycles, those involving sodium fast reactors (SFRs) are of interest. 
 Pyroprocessing enables a transition from light water reactors (LWRs) to SFRs and other metallic fuel.
-Therefore, pyroprocessing is under consideration as a means of processing the fuel required to start up new breeder reactors for
-the EG01-EG24 transition scenario.
+Therefore, pyroprocessing is under consideration as a means of processing the fuel required to start up new breeder reactors for potential transition scenarios.
 
 \subsection{Pyroprocessing}
 For other fuel cycle facilities, we have plenty of operating experience to inform safeguards. For example, in the case of aqueous reprocessing
@@ -26,25 +25,26 @@ tools have been developed for electrochemical processes such as the Separation a
 These tools take a high fidelity approach to model the
 chemistry taking place within each chamber. In order to run these tools, the user must have intimate knowledge of the specific facility the flowsheets have
 been designed for. There is a gap, however, in the medium fidelity models that can inform broader fuel cycle applications such as transition scenarios \cite{borrelli_approaches_2017}. 
+Medium fidelity models provide more detailed physics without being specifically tied to a single facility design.
 
 \subsection{Safeguards}
 Currently there are no commercially operated pyroprocessing plants, however various research designs exist in national labs,
 notably Argonne National Lab (ANL), Idaho National Lab (INL), and the Korea Atomic Energy Research Institute (KAERI) \cite{michael_f._simpson_developments_2012, lee_advanced, frigo_conceptual_2003}. 
 Therefore, prior to construction of any design we 
 want to implement safeguards by design. Similar to security by design in next generation reactors, safeguards-by-design incorporates key measurement 
-points and access points into the facility design. Rather than learn from mistakes, in the future we aim to incorporate safety 
+points and access points into the facility design. Rather than learn from mistakes, in the future we aim to incorporate security 
 into the design.
 
 \section{Background}
-Prior work has been done on modeling high fidelity facilities and pyroprocessing. In the following section we compile recent efforts modeling fuel cycle facilities with
+Prior work has been done on high fidelity modeling and pyroprocessing. In the following section we compile recent efforts modeling fuel cycle facilities with
 \Cyclus. I also breakdown the electrochemical processes of each sub-process in generic pyroprocessing operation. The key elements are voloxidation, electroreduction, electrorefining, and electrowinning. 
 
 \subsection{Facility Modeling}
-Developers at the University of Wisconsin, University of Tennessee Knoxville, and University of Texas Austin have created a number of detailed facility models to expand the \Cyclus framework. At Wisconsin, Dr. Meghan McGarry contributed various random number generator (RNG) based archetypes to capture non-deterministic behaviors in \texttt{Enrich} and \texttt{Sink} \cite{mcgarry_mbmore_2017}. The capabilities for these archetypes include variable assays, inspector swipe tests, and Gaussian distribution of material. \texttt{CascadeEnrich} adds further detail to the \texttt{Enrich} archetype by incorporating detailed centrifuge physics and parameters. Current work from Wisconsin includes work from graduate student Kathryn Mummah, who is using pathway analysis to identify key diversion paths within \Cyclus simulations \cite{mummah_material_2019}. Her work
+Developers at the University of Wisconsin, University of Tennessee-Knoxville, and University of Texas at Austin have created a number of detailed facility models to expand the \Cyclus framework. At Wisconsin Professor Paul Wilson has led various efforts. There, Dr. Meghan McGarry contributed various random number generator (RNG) based archetypes to capture non-deterministic behaviors in \texttt{Enrich} and \texttt{Sink} \cite{mcgarry_mbmore_2017}. The capabilities for these archetypes include variable assays, inspector swipe tests, and Gaussian distribution of material. \texttt{CascadeEnrich} adds further detail to the \texttt{Enrich} archetype by incorporating detailed centrifuge physics and parameters. Current work from Wisconsin includes work from graduate student Kathryn Mummah, who is using pathway analysis to identify key diversion paths within \Cyclus simulations \cite{mummah_material_2019}. Her work
 also focuses on the addition of sub-facility modeling to provide detailed pathways for diversion detection.
 
-At the University of Tennessee Knoxville Dr. Steve Skutnik developed CYclus-Based ORiGen (CyBORG) \cite{skutnik_cyborg:_2016}. This module expands the reactor analysis capabilites of \Cyclus by coupling with Origen. The extension adds reactor data libraries that allow users to perform origen
-reactor depletion calculations within \Cyclus. Other higher fidelity models include the Bright-lite package created at the University of Texas Austin by Dr. Erich Schneider and Dr. Anthony Scopatz \cite{schneider_integrated_2016}. This package adds a medium fidelity reactor, fuel fabrication facility, and reprocessing facility modules.
+At the University of Tennessee-Knoxville, Dr. Steve Skutnik developed CYclus-Based ORiGen (CyBORG) \cite{skutnik_cyborg:_2016}. This module expands the reactor analysis capabilites of \Cyclus by coupling with ORIGEN \cite{bell_origen_1973}. The extension adds reactor data libraries that allow users to perform origen
+reactor depletion calculations within \Cyclus. Other higher fidelity models include the Bright-lite package created at the University of Texas at Austin by Dr. Erich Schneider and Dr. Anthony Scopatz \cite{schneider_integrated_2016}. This package adds a medium fidelity reactor, fuel fabrication facility, and reprocessing facility modules.
 
 \subsection{Pyroprocessing}
 Pyroprocessing is an electrochemical separation method used primarily for metallic fast reactor fuel.
@@ -55,7 +55,7 @@ This becomes a problem when chemically isolating heavier elements such as lantha
 Controlling the oxidation states of these elements often requires potentials outside the stability of water. 
 Increasing a potential beyond the medium's stability (or electrochemical window) limits oxidation and reduction \cite{hayyan_investigating_2013}.
 Hence, pyroprocessing was born to improve non-proliferation and reprocessing capabilities.
-\\ \\
+
 In addition to the improved redox control of heavier elements, we co-extract materials of interest so they cannot easily be refined for weapons.
 This is done through the electrorefining and electrowinning stages by separating a pure uranium stream as well as a uranium/transuranic (U/TRU) mixed stream. 
 The U/TRU can then be readily used for fuel fabrication while maintaining proliferation resistance.
